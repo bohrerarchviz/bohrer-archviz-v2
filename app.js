@@ -250,18 +250,20 @@
     input.addEventListener("input", update);
   });
 
-  /* ---------- Submit (demo) ---------- */
-  $("#contact-form")?.addEventListener("submit", e => {
-    e.preventDefault();
-    const btn = e.target.querySelector(".btn-submit");
-    const orig = btn.innerHTML;
-    btn.innerHTML = lang === "pt" ? "ENVIADO ✓" : "SENT ✓";
-    setTimeout(() => {
-      btn.innerHTML = orig;
-      e.target.reset();
-      $$(".field").forEach(f => f.classList.remove("has-value"));
-    }, 2200);
-  });
+  /* ---------- Submit to Netlify ---------- */
+$("#contact-form")?.addEventListener("submit", e => {
+  const form = e.target;
+
+  if (!form.checkValidity()) {
+    return;
+  }
+
+  const btn = form.querySelector(".contact__submit");
+
+  if (btn) {
+    btn.innerHTML = lang === "pt" ? "ENVIANDO..." : "SENDING...";
+  }
+});
 
   /* ---------- Client portal ---------- */
   const portal = $("#portal");
