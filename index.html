@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BOHRER ARCHVIZ — Architectural Visualization Studio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=ABeeZee:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" data-screen-label="00 Nav">
+  <div class="nav__inner">
+    <a href="#hero" class="nav__logo" data-scroll>
+  <img src="assets/images/logo_website.png" alt="BOHRER ARCHVIZ" class="nav__logo-img">
+</a>
+
+    <button class="nav__burger" id="nav-burger" aria-label="Menu" type="button">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav>
+      <ul class="nav__links" id="nav-links">
+        <li><a class="nav__link" href="#hero" data-scroll data-i18n="nav.home">INÍCIO</a></li>
+        <li><a class="nav__link" href="#portfolio" data-scroll data-i18n="nav.projects">PROJETOS</a></li>
+        <li><a class="nav__link" href="#services" data-scroll data-i18n="nav.services">SERVIÇOS</a></li>
+        <li><a class="nav__link" href="#contact" data-scroll data-i18n="nav.contact">CONTATO</a></li>
+        <li><a class="nav__link nav__link--client" href="#" data-portal-open data-i18n="nav.client">CLIENTE</a></li>
+        <li class="nav__lang" aria-label="Language">
+          <button data-lang="pt">PT</button>
+          <span class="sep">|</span>
+          <button data-lang="en" class="is-on">EN</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero" data-screen-label="01 Hero">
+ <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
+  <source src="assets/videos/video_loop.mp4" type="video/mp4">
+</video>
+  <div class="hero__overlay"></div>
+
+  <div class="hero__inner">
+    <h1 class="hero__title" data-i18n="hero.title">Transformando sonhos<br>em imagens</h1>
+    <p class="hero__sub" data-i18n="hero.sub" style="max-width:none;white-space:normal">Soluções visuais para ateliers, arquitetos e mercado imobiliário.</p>
+  </div>
+
+  <button class="hero__scroll" type="button">
+    <span>SCROLL</span>
+    <svg viewBox="0 0 14 22" aria-hidden="true">
+      <path d="M7 1 V20 M2 15 L7 20 L12 15" />
+    </svg>
+  </button>
+</section>
+
+<!-- ============ PORTFOLIO ============ -->
+<section class="portfolio-wrap" id="portfolio" data-screen-label="02 Portfolio">
+  <div class="section__head reveal">
+    <h2 class="section__title" data-i18n="portfolio.title">PORTFÓLIO</h2>
+    <p class="section__desc" data-i18n="portfolio.desc">O Studio BOHRER dá vida aos seus projetos arquitetônicos com o equilíbrio perfeito entre técnica e emoção. Veja alguns dos nossos trabalhos recentes.</p>
+  </div>
+
+  <div class="portfolio">
+    <article class="tile t1 reveal"  style="--stripe-a:#dfdfdf;--stripe-b:#ececec;--stripe-angle:35deg"><div class="tile__img"></div></article>
+    <article class="tile t2 reveal"  style="--stripe-a:#e6e6e6;--stripe-b:#f1f1f1;--stripe-angle:120deg"><div class="tile__img"></div></article>
+    <article class="tile t3 reveal"  style="--stripe-a:#dedede;--stripe-b:#ededed;--stripe-angle:75deg"><div class="tile__img"></div></article>
+    <article class="tile t4 reveal"  style="--stripe-a:#e3e3e3;--stripe-b:#efefef;--stripe-angle:10deg"><div class="tile__img"></div></article>
+    <article class="tile t5 reveal"  style="--stripe-a:#e0e0e0;--stripe-b:#ededed;--stripe-angle:150deg"><div class="tile__img"></div></article>
+    <article class="tile t6 reveal"  style="--stripe-a:#e6e6e6;--stripe-b:#f2f2f2;--stripe-angle:50deg"><div class="tile__img"></div></article>
+    <article class="tile t7 reveal"  style="--stripe-a:#dcdcdc;--stripe-b:#eaeaea;--stripe-angle:90deg"><div class="tile__img"></div></article>
+    <article class="tile t8 reveal"  style="--stripe-a:#e4e4e4;--stripe-b:#efefef;--stripe-angle:25deg"><div class="tile__img"></div></article>
+    <article class="tile t9 reveal"  style="--stripe-a:#dadada;--stripe-b:#e8e8e8;--stripe-angle:100deg"><div class="tile__img"></div></article>
+    <article class="tile t10 reveal" style="--stripe-a:#e0e0e0;--stripe-b:#ececec;--stripe-angle:60deg"><div class="tile__img"></div></article>
+    <article class="tile t11 reveal" style="--stripe-a:#e8e8e8;--stripe-b:#f2f2f2;--stripe-angle:140deg"><div class="tile__img"></div></article>
+    <article class="tile t12 reveal" style="--stripe-a:#dcdcdc;--stripe-b:#e9e9e9;--stripe-angle:5deg"><div class="tile__img"></div></article>
+    <article class="tile t13 reveal" style="--stripe-a:#e6e6e6;--stripe-b:#efefef;--stripe-angle:115deg"><div class="tile__img"></div></article>
+    <article class="tile t14 reveal" style="--stripe-a:#dedede;--stripe-b:#ededed;--stripe-angle:85deg"><div class="tile__img"></div></article>
+    <article class="tile t15 reveal" style="--stripe-a:#e2e2e2;--stripe-b:#ededed;--stripe-angle:40deg"><div class="tile__img"></div></article>
+    <article class="tile t16 reveal" style="--stripe-a:#dcdcdc;--stripe-b:#e8e8e8;--stripe-angle:30deg"><div class="tile__img"></div></article>
+    <article class="tile t17 reveal" style="--stripe-a:#e4e4e4;--stripe-b:#efefef;--stripe-angle:130deg"><div class="tile__img"></div></article>
+    <article class="tile t18 reveal" style="--stripe-a:#dedede;--stripe-b:#eaeaea;--stripe-angle:65deg"><div class="tile__img"></div></article>
+    <article class="tile t19 reveal" style="--stripe-a:#e6e6e6;--stripe-b:#f0f0f0;--stripe-angle:95deg"><div class="tile__img"></div></article>
+    <article class="tile t20 reveal" style="--stripe-a:#dadada;--stripe-b:#e7e7e7;--stripe-angle:15deg"><div class="tile__img"></div></article>
+  </div>
+</section>
+
+<!-- ============ VIDEOS REEL ============ -->
+<section class="videos" data-screen-label="02b Videos">
+  <div class="videos__row">
+
+    <button class="video-slot reveal" type="button" data-video="1196133537">
+      <div class="video-slot__inner video-thumb video-thumb-01">
+        <span class="video-play">▶</span>
+        <span class="video-slot__label">Villa Alma do Mar</span>
+      </div>
+    </button>
+
+    <button class="video-slot reveal" type="button" data-video="1195956722">
+      <div class="video-slot__inner video-thumb video-thumb-02">
+        <span class="video-play">▶</span>
+        <span class="video-slot__label">Green Houses</span>
+      </div>
+    </button>
+
+    <button class="video-slot reveal" type="button" data-video="1195957277">
+      <div class="video-slot__inner video-thumb video-thumb-03">
+        <span class="video-play">▶</span>
+        <span class="video-slot__label">Linhas do Horizonte</span>
+      </div>
+    </button>
+
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services" data-screen-label="03 Services">
+  <div class="section__head reveal">
+    <h2 class="section__title" data-i18n="services.title">O QUE FAZEMOS?</h2>
+    <p class="section__desc" data-i18n="services.desc">Visualização arquitetônica de precisão milimétrica para construtoras e investidores de luxo.</p>
+  </div>
+
+  <div class="services__grid reveal">
+    <article class="service">
+      <div>
+        <div class="service__num">/ 01</div>
+        <svg class="service__icon" viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M24 6 L42 16 L42 36 L24 46 L6 36 L6 16 Z" />
+          <path d="M24 6 L24 26" />
+          <path d="M6 16 L24 26 L42 16" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="service__name" data-i18n="services.s1.name">Imagens 3D</h3>
+        <p class="service__desc" data-i18n="services.s1.desc">Renders estáticos de ultra-realismo para interiores e exteriores.</p>
+      </div>
+    </article>
+
+    <article class="service">
+      <div>
+        <div class="service__num">/ 02</div>
+        <svg class="service__icon" viewBox="0 0 48 48" aria-hidden="true">
+          <rect x="6" y="16" width="26" height="18" rx="2" />
+          <path d="M32 22 L42 16 L42 34 L32 28 Z" />
+          <circle cx="13" cy="25" r="1.5" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="service__name" data-i18n="services.s2.name">Vídeos & Animações</h3>
+        <p class="service__desc" data-i18n="services.s2.desc">Filmes arquitetônicos cinematográficos com movimento natural, iluminação e narrativa espacial.</p>
+      </div>
+    </article>
+
+    <article class="service">
+      <div>
+        <div class="service__num">/ 03</div>
+        <svg class="service__icon" viewBox="0 0 48 48" aria-hidden="true">
+          <rect x="6" y="6" width="36" height="36" />
+          <path d="M6 18 L42 18" />
+          <path d="M18 18 L18 42" />
+          <path d="M30 18 L30 30 L42 30" />
+          <circle cx="12" cy="12" r="1.5" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="service__name" data-i18n="services.s3.name">Plantas Humanizadas</h3>
+        <p class="service__desc" data-i18n="services.s3.desc">Representações gráficas humanizadas para lançamentos imobiliários.</p>
+      </div>
+    </article>
+
+    <article class="service">
+      <div>
+        <div class="service__num">/ 04</div>
+        <svg class="service__icon" viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M8 40 L8 14 L26 6 L40 14" />
+          <path d="M8 40 L26 32 L40 40" />
+          <path d="M26 6 L26 32" />
+          <path d="M8 14 L26 22 L40 14" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="service__name" data-i18n="services.s4.name">Modelação 3D</h3>
+        <p class="service__desc" data-i18n="services.s4.desc">Desde esboços e desenhos CAD até modelos BIM completos e totalmente desenvolvidos.</p>
+      </div>
+    </article>
+  </div>
+  <div class="services__cta reveal">
+    <a href="#contact" class="btn-line" data-scroll>
+      <span data-i18n="services.cta">FALAR CONOSCO</span>
+      <svg viewBox="0 0 24 10" aria-hidden="true"><path d="M0 5 L22 5 M17 1 L22 5 L17 9" /></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ PILLAR / IMPACT (BLACK BAND) ============ -->
+<section class="pillar" data-screen-label="04 Pillar">
+  <div class="pillar__grid">
+    <div class="pillar__left reveal">
+      <h2 class="pillar__title" data-i18n="pillar.title">Cada Detalhe. Qualquer Escala.</h2>
+      <p class="pillar__desc" data-i18n="pillar.desc">De projetos de arquitetura e interiores ao paisagismo: soluções visuais completas, independentemente da complexidade.</p>
+    </div>
+    <div class="pillar__metrics">
+      <div class="metric reveal">
+        <div class="metric__num" data-value="80"><span class="metric__val">0</span><span class="metric__suffix">+</span></div>
+        <div class="metric__label" data-i18n="metrics.m1">Projetos Entregues</div>
+      </div>
+      <div class="metric reveal">
+        <div class="metric__num" data-value="20000" data-format="k"><span class="metric__val">0</span><span class="metric__suffix">+</span></div>
+        <div class="metric__label" data-i18n="metrics.m2">Horas de Renders</div>
+      </div>
+      <div class="metric reveal">
+        <div class="metric__num" data-value="1500"><span class="metric__val">0</span><span class="metric__suffix">+</span></div>
+        <div class="metric__label" data-i18n="metrics.m3">Imagens e Vídeos Gerados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" data-screen-label="05 Testimonials">
+  <div class="testimonials__head reveal">
+    <div class="section__head" style="margin-bottom:0">
+      <h2 class="section__title" data-i18n="testimonials.title">DEPOIMENTOS</h2>
+      <p class="section__desc" data-i18n="testimonials.desc">A palavra de quem nos contratou — escritórios de arquitetura, incorporadoras e marcas de hospitalidade.</p>
+    </div>
+  </div>
+
+  <div class="marquee">
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">O Bruno foi super responsável, desde o início do contato até a entrega final. Farei outro projeto com certeza!</p></div><div class="quote__author"><strong>MARCOS SANCERY</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Imagens e entrega incrível, nos surpreendeu a qualidade das imagens. O resultado final ficou impecável.</p></div><div class="quote__author"><strong>JULIANA CORREA</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">The level of realism in the final images really helped us close the sale. Exceptional quality, thank you Bruno!</p></div><div class="quote__author"><strong>MARK WARREN</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Very professional and punctual. He understood the brief perfectly from day one and delivered beyond expectations.</p></div><div class="quote__author"><strong>SUSAN PAUL</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Atento ao detalhe, pontual e muito profissional. Recomendo sem reservas para qualquer projeto.</p></div><div class="quote__author"><strong>RAFAEL GONÇALVES</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Trabalho impecável, prazos respeitados e comunicação muito clara durante todo o processo.</p></div><div class="quote__author"><strong>CAMILA OLIVEIRA</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Working with Bruno felt effortless. Clear communication, sharp eye and beautiful renders.</p></div><div class="quote__author"><strong>MIKE DONOVAN</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Superou nossas expectativas. As imagens ajudaram a fechar o lançamento mais rápido do que imaginávamos.</p></div><div class="quote__author"><strong>MARIANA ANDRADE</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">He nailed the atmosphere we were after. Our investors were genuinely impressed with the final results.</p></div><div class="quote__author"><strong>SARAH LAMBERT</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Profissional dedicado, sensível ao projeto e que entende perfeitamente a linguagem do arquiteto.</p></div><div class="quote__author"><strong>PEDRO HENRIQUE LIMA</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Truly outstanding work. Bruno listens, iterates and delivers without any drama at all.</p></div><div class="quote__author"><strong>PAUL HEATH</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Confiamos a ele a comunicação visual do empreendimento e o resultado foi extraordinário.</p></div><div class="quote__author"><strong>RENATA MELLO</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">The detail in materials and lighting is remarkable. Best 3D artist we have worked with so far.</p></div><div class="quote__author"><strong>EMILY HART</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Foi um prazer trabalhar com o Bruno. Sempre disponível, criativo e atencioso com cada feedback.</p></div><div class="quote__author"><strong>FELIPE CASTRO</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Reliable, fast and incredibly talented. We will be hiring him for every launch from now on.</p></div><div class="quote__author"><strong>DANIEL COLE</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">As animações ficaram cinematográficas. Recebemos elogios de clientes e colegas do mercado.</p></div><div class="quote__author"><strong>LUÍSA FERRAZ</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Felt like a true collaborator, not just a vendor. Highly recommended for serious projects.</p></div><div class="quote__author"><strong>OLIVIA REED</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Capricho do início ao fim. Voltarei a contratar em todos os próximos projetos da empresa.</p></div><div class="quote__author"><strong>DANIELA VIEIRA</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Great experience start to finish. The animations brought our concept to life beautifully.</p></div><div class="quote__author"><strong>TOM BENNETT</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Entrega rápida e qualidade muito acima da média do mercado. Recomendo de olhos fechados.</p></div><div class="quote__author"><strong>GABRIEL TAVARES</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Bruno brought a layer of cinematic quality we did not think was possible at this stage.</p></div><div class="quote__author"><strong>ANNA LEWIS</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">A precisão técnica dele é impressionante. Sentimos cada detalhe da arquitetura na imagem.</p></div><div class="quote__author"><strong>BEATRIZ RODRIGUES</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Honest, attentive and obsessively detail driven. Loved every step of the process.</p></div><div class="quote__author"><strong>JAMES CARTER</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Comunicação leve e profissionalismo de sobra. Indiquei para vários colegas de escritório.</p></div><div class="quote__author"><strong>ANDRÉ PACHECO</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">He delivered ahead of schedule and the images sold themselves. Highly impressed overall.</p></div><div class="quote__author"><strong>RACHEL FOSTER</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Bruno transformou nosso projeto em algo que conseguimos vender já no primeiro mês de campanha.</p></div><div class="quote__author"><strong>THIAGO BARROS</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Patient with revisions and generous with ideas. A real pleasure to work with on every project.</p></div><div class="quote__author"><strong>CHRIS MORGAN</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Cuidado raro com luz, materiais e composição. Um resultado verdadeiramente de outro nível.</p></div><div class="quote__author"><strong>CAROLINA DUARTE</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Quality you can feel in every frame. The renders set a new bar for our marketing materials.</p></div><div class="quote__author"><strong>LAUREN WALSH</strong></div></article>
+    <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Bruno is one of those rare professionals who turns up with both craft and real care for the work.</p></div><div class="quote__author"><strong>BEN RUSSELL</strong></div></article>
+  </div>
+</section>
+
+<!-- ============ FOUNDER ============ -->
+<section class="founder" data-screen-label="06 Founder">
+  <div class="founder__grid">
+    <div class="founder__photo reveal" aria-label="Portrait of Bruno Bohrer"></div>
+    <div class="founder__text reveal">
+      <h2 class="founder__name">BRUNO BOHRER</h2>
+      <div class="founder__role" data-i18n="founder.role">Arquiteto e Fundador</div>
+      <div class="founder__bio" data-i18n="founder.bio">
+        <p>Formado em Arquitetura e Urbanismo no Brasil em 2018, com experiência no mercado europeu desde 2020, atuo na ligação entre arquitetura, modelação BIM e comunicação visual através de imagens e animações de alto nível.</p>
+        <p>Desde o início da minha carreira, sempre tive um forte interesse pela componente tecnológica da arquitetura. Isso levou-me a trabalhar o projeto de forma mais integrada, utilizando a modelação 3D como ferramenta para clarificar ideias desde a fase de conceção e melhorar a forma como são comunicadas ao cliente.</p>
+        <p>Atualmente, foco no desenvolvimento de fluxos de trabalho em BIM, produção de visualizações realistas e na utilização de ferramentas com inteligência artificial, que permitem otimizar o tempo de produção e elevar a qualidade final das imagens.</p>
+        <p>Ao longo da minha experiência, colaborei com diversos ateliês de arquitetura e equipas do setor imobiliário em projetos residenciais e empreendimentos de alto padrão, sempre com atenção ao detalhe e alinhamento com os objetivos do cliente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact" data-screen-label="07 Contact">
+  <div class="contact__bg" aria-hidden="true"></div>
+  <div class="contact__veil" aria-hidden="true"></div>
+
+  <div class="contact__split">
+    <div class="contact__lead">
+      <div>
+        <h2 class="contact__lead-title reveal" data-i18n="contact.title">Vamos conversar</h2>
+        <p class="contact__lead-sub reveal" data-i18n="contact.lead">Nos conte mais sobre o seu projeto.</p>
+      </div>
+
+      <div class="contact-info">
+        <div class="info-card reveal">
+          <svg class="info-card__icon" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="26" r="16" />
+            <path d="M24 16 L24 26 L32 30" />
+            <path d="M18 6 L30 6" />
+            <path d="M24 6 L24 10" />
+          </svg>
+          <div>
+            <h3 class="info-card__title"><span data-i18n="info.1.title">Resposta rápida.</span> <span class="info-card__inline" data-i18n="info.1.desc">Se você está pronto para criar e colaborar com a gente, adoraríamos ouvir você.</span></h3>
+          </div>
+        </div>
+        <div class="info-card reveal">
+          <svg class="info-card__icon" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="18" />
+            <path d="M15 24 L21 30 L33 18" />
+          </svg>
+          <div>
+            <h3 class="info-card__title"><span data-i18n="info.2.title">Próximos passos claros.</span> <span class="info-card__inline" data-i18n="info.2.desc">Após a consultoria, forneceremos um plano detalhado e um cronograma.</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact__panel reveal">
+      <div class="contact__panel-title" data-i18n="contact.panel">Tem um projeto em mente?</div>
+      <form id="contact-form" novalidate>
+        <div class="field">
+          <input type="text" id="f-name" required />
+          <label for="f-name"><span data-i18n="contact.name">Seu Nome</span> *</label>
+        </div>
+        <div class="field">
+          <input type="email" id="f-email" required />
+          <label for="f-email"><span data-i18n="contact.email">E-mail</span> *</label>
+        </div>
+        <div class="field">
+          <input type="tel" id="f-whats" required />
+          <label for="f-whats"><span data-i18n="contact.whats">Telefone</span> *</label>
+        </div>
+        <div class="field">
+          <textarea id="f-msg" rows="2"></textarea>
+          <label for="f-msg" data-i18n="contact.message">Mensagem</label>
+        </div>
+
+       <div class="contact__actions">
+
+  <button class="contact__submit" type="submit">
+    <span data-i18n="contact.send">SEND MESSAGE</span>
+    <svg viewBox="0 0 24 10" aria-hidden="true">
+      <path d="M0 5 L22 5 M17 1 L22 5 L17 9" />
+    </svg>
+  </button>
+
+  <a
+    href="https://api.whatsapp.com/send?phone=351964684343"
+    target="_blank"
+    rel="noopener"
+    class="contact__whatsapp"
+    aria-label="WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.1-.472-.148-.672.15-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.173.198-.298.298-.497.1-.198.05-.372-.025-.521-.074-.149-.672-1.616-.92-2.214-.242-.58-.487-.5-.672-.51-.173-.009-.372-.011-.571-.011-.198 0-.52.074-.793.372-.273.297-1.04 1.015-1.04 2.47 0 1.455 1.065 2.865 1.213 3.064.149.198 2.1 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.273-.198-.57-.347z"/>
+      <path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12c0 2.106.651 4.057 1.76 5.691L2 22l4.47-1.176A9.93 9.93 0 0012 22c5.514 0 10-4.486 10-10S17.514 2 12 2zm0 18c-1.982 0-3.88-.65-5.403-1.748l-.386-.232-2.654.699.709-2.589-.251-.417A7.958 7.958 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
+    </svg>
+  </a>
+
+</div>
+
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__brand" data-i18n="footer.cr">© 2026 BOHRER Archviz. Todos os direitos reservados.</div>
+
+  <div class="footer__contact">
+   <a href="https://api.whatsapp.com/send?phone=351964684343"
+   target="_blank"
+   rel="noopener"
+   data-i18n="footer.phone">
+   +351 964 684 343
+</a>
+    <a href="mailto:bohrer.archviz@gmail.com" data-i18n="footer.email">bohrer.archviz@gmail.com</a>
+  </div>
+
+  <div class="footer__social">
+   <a href="https://www.linkedin.com/in/bruno-bohrer/"
+   target="_blank"
+   rel="noopener"
+   aria-label="LinkedIn"
+   class="footer__icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 4h4v16h-4z M6 2.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z M10 8h4v2c.7-1.3 2-2.4 4-2.4 3 0 4 2 4 5v7.4h-4v-6.6c0-1.6-.6-2.4-2-2.4s-2 1-2 2.6v6.4h-4z" stroke="none" fill="currentColor"/>
+      </svg>
+    </a>
+    <a href="https://behance.net/brunobohrer"
+   target="_blank"
+   rel="noopener"
+   aria-label="Behance"
+   class="footer__icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2 5h5.5c2 0 3.2 1 3.2 2.6 0 1.2-.6 2-1.7 2.4 1.4.4 2.2 1.3 2.2 2.9 0 2-1.4 3.1-3.8 3.1H2V5zm2 4.2h3.2c.9 0 1.5-.4 1.5-1.2 0-.7-.5-1.1-1.4-1.1H4v2.3zm0 5h3.5c1.1 0 1.7-.5 1.7-1.4 0-.9-.6-1.4-1.7-1.4H4v2.8z M14 6h6v1.5h-6V6z M16.8 9c-2.4 0-4 1.8-4 4.2 0 2.5 1.6 4.1 4.1 4.1 1.9 0 3.3-.9 3.9-2.3l-1.7-.5c-.3.7-1 1.2-2.1 1.2-1.3 0-2.2-.8-2.4-2.1h6.4c0-.2 0-.4 0-.6 0-2.4-1.5-4-4.2-4zm-2.1 3.3c.2-1 .9-1.7 2.1-1.7 1.1 0 1.9.7 2 1.7h-4.1z" stroke="none" fill="currentColor"/>
+      </svg>
+    </a>
+    <a href="https://www.instagram.com/bohrer.archviz/"
+   target="_blank"
+   rel="noopener"
+   aria-label="Instagram"
+   class="footer__icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="4.5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17" cy="7" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    </a>
+  </div>
+</footer>
+
+<!-- ============ CLIENT PORTAL ============ -->
+<div class="portal" id="portal" aria-hidden="true" data-screen-label="Portal">
+  <div class="portal__brand">
+    <img src="assets/images/logo_website.png" alt="BOHRER ARCHVIZ" class="portal__brand-logo">
+    <span class="portal__brand-text">BOHRER ARCHVIZ</span>
+  </div>
+  <button class="portal__close" type="button" data-portal-close data-i18n="portal.back">← voltar ao site</button>
+
+  <div class="portal__card">
+    <div class="portal__eyebrow" data-i18n="portal.eyebrow">PORTAL EXCLUSIVO</div>
+    <h1 class="portal__title" data-i18n="portal.title">Área do Cliente</h1>
+    <p class="portal__sub" data-i18n="portal.sub">Acesse seus projetos em andamento, downloads e revisões.</p>
+
+    <form onsubmit="event.preventDefault();">
+      <div class="field">
+        <input type="email" id="p-user" />
+        <label for="p-user" data-i18n="portal.user">E-mail</label>
+      </div>
+      <div class="field">
+        <input type="password" id="p-pass" />
+        <label for="p-pass" data-i18n="portal.pass">Senha</label>
+      </div>
+      <button class="portal__cta" type="submit" data-i18n="portal.cta">ENTRAR</button>
+      <div class="portal__meta">
+        <a href="#" data-i18n="portal.forgot">esqueci minha senha</a>
+        <span>v 1.0</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="video-modal" id="video-modal">
+  <div class="video-modal__overlay"></div>
+
+  <div class="video-modal__content">
+    <button class="video-modal__close" id="video-close">
+      ✕
+    </button>
+
+    <div class="video-modal__video">
+      <iframe
+        id="video-frame"
+        src=""
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Scripts ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
