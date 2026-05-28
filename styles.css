@@ -1881,3 +1881,20 @@ section {
   background:rgba(255,255,255,0.14);
   border-color:rgba(255,255,255,0.24);
 }
+/* ---------- Contact form states ---------- */
+
+.contact__submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none !important;
+}
+
+.contact__submit.is-success {
+  background: #ffffff;
+  color: #111111;
+}
+
+.contact__submit.is-error {
+  background: #ff4d4d;
+  color: #ffffff;
+}

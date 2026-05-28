@@ -250,18 +250,61 @@
     input.addEventListener("input", update);
   });
 
-  /* ---------- Submit to Netlify ---------- */
-$("#contact-form")?.addEventListener("submit", e => {
+  /* ---------- Submit to Netlify without leaving the page ---------- */
+$("#contact-form")?.addEventListener("submit", async e => {
+  e.preventDefault();
+
   const form = e.target;
 
   if (!form.checkValidity()) {
+    form.reportValidity();
     return;
   }
 
   const btn = form.querySelector(".contact__submit");
+  const originalText = btn ? btn.innerHTML : "";
 
   if (btn) {
+    btn.disabled = true;
     btn.innerHTML = lang === "pt" ? "ENVIANDO..." : "SENDING...";
+  }
+
+  try {
+    const formData = new FormData(form);
+
+    await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString()
+    });
+
+    if (btn) {
+      btn.classList.add("is-success");
+      btn.innerHTML = lang === "pt" ? "ENVIADO ✓" : "SENT ✓";
+    }
+
+    form.reset();
+    $$(".field").forEach(f => f.classList.remove("has-value"));
+
+    setTimeout(() => {
+      if (btn) {
+        btn.classList.remove("is-success");
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    }, 2500);
+
+  } catch (error) {
+    if (btn) {
+      btn.classList.add("is-error");
+      btn.innerHTML = lang === "pt" ? "ERRO AO ENVIAR" : "SEND ERROR";
+
+      setTimeout(() => {
+        btn.classList.remove("is-error");
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 2500);
+    }
   }
 });
 
