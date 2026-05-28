@@ -320,23 +320,50 @@
 
     <div class="contact__panel reveal">
       <div class="contact__panel-title" data-i18n="contact.panel">Tem um projeto em mente?</div>
-      <form id="contact-form" novalidate>
-        <div class="field">
-          <input type="text" id="f-name" required />
-          <label for="f-name"><span data-i18n="contact.name">Seu Nome</span> *</label>
-        </div>
-        <div class="field">
-          <input type="email" id="f-email" required />
-          <label for="f-email"><span data-i18n="contact.email">E-mail</span> *</label>
-        </div>
-        <div class="field">
-          <input type="tel" id="f-whats" required />
-          <label for="f-whats"><span data-i18n="contact.whats">Telefone</span> *</label>
-        </div>
-        <div class="field">
-          <textarea id="f-msg" rows="2"></textarea>
-          <label for="f-msg" data-i18n="contact.message">Mensagem</label>
-        </div>
+      <form
+  id="contact-form"
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  novalidate
+>
+  <input type="hidden" name="form-name" value="contact">
+
+  <p style="display:none;">
+    <label>
+      Don’t fill this out if you’re human:
+      <input name="bot-field">
+    </label>
+  </p>
+
+  <div class="field">
+    <input type="text" id="f-name" name="name" required />
+    <label for="f-name">
+      <span data-i18n="contact.name">Seu Nome</span> *
+    </label>
+  </div>
+
+  <div class="field">
+    <input type="email" id="f-email" name="email" required />
+    <label for="f-email">
+      <span data-i18n="contact.email">E-mail</span> *
+    </label>
+  </div>
+
+  <div class="field">
+    <input type="tel" id="f-whats" name="phone" required />
+    <label for="f-whats">
+      <span data-i18n="contact.whats">Telefone</span> *
+    </label>
+  </div>
+
+  <div class="field">
+    <textarea id="f-msg" name="message" rows="2"></textarea>
+    <label for="f-msg" data-i18n="contact.message">
+      Mensagem
+    </label>
+  </div>
 
        <div class="contact__actions">
 
