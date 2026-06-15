@@ -248,6 +248,104 @@ a{color:inherit;text-decoration:none} button{cursor:pointer;font-family:inherit}
   <h1 class="qstep__title">What services<br>do you need?</h1>
   <p class="qstep__sub">Select Yes for each service. Detailed questions will expand automatically.</p>
 
+  <!-- ─── 3D Model Availability ─── -->
+  <div class="sec-lbl" id="s2-model-lbl">3D Model Availability</div>
+  <p class="qstep__sub" style="margin-bottom:20px;margin-top:-4px" id="s2-model-q">Do you already have a 3D model of the project?</p>
+  <div class="cgrid" id="s2-model-grid">
+    <div class="card" data-g="s2model" data-v="Yes"><div class="card__label">Yes</div></div>
+    <div class="card" data-g="s2model" data-v="Partially"><div class="card__label">Partially</div></div>
+    <div class="card" data-g="s2model" data-v="No"><div class="card__label">No</div></div>
+  </div>
+
+  <!-- YES branch -->
+  <div class="expand" id="s2-yes-ex">
+    <div class="cg">
+      <div class="cg__label" id="s2-fmt-lbl">3D File Format</div>
+      <div class="chips">
+        <button class="chip" data-m="s2fmt" data-v="Archicad">Archicad</button>
+        <button class="chip" data-m="s2fmt" data-v="SketchUp">SketchUp</button>
+        <button class="chip" data-m="s2fmt" data-v="Revit">Revit</button>
+        <button class="chip" data-m="s2fmt" data-v="3ds Max">3ds Max</button>
+        <button class="chip" data-m="s2fmt" data-v="IFC">IFC</button>
+        <button class="chip" data-m="s2fmt" data-v="FBX">FBX</button>
+        <button class="chip" data-m="s2fmt" data-v="OBJ">OBJ</button>
+        <button class="chip" data-m="s2fmt" data-v="Other">Other</button>
+      </div>
+    </div>
+    <div class="qfield" id="s2-fmt-other-field" style="display:none">
+      <input type="text" id="f-s2-fmt-other" />
+      <label for="f-s2-fmt-other">Please specify</label>
+    </div>
+
+    <div class="sec-lbl" id="s2-intmod-lbl">Are the interiors already modeled?</div>
+    <div class="cgrid" id="s2-intmod-grid">
+      <div class="card" data-g="s2intmod" data-v="Yes"><div class="card__label">Yes</div></div>
+      <div class="card" data-g="s2intmod" data-v="Partially"><div class="card__label">Partially</div></div>
+      <div class="card" data-g="s2intmod" data-v="No"><div class="card__label">No</div></div>
+    </div>
+
+    <div class="sec-lbl" id="s2-yes-status-lbl">What is the current model status?</div>
+    <div class="cgrid" id="s2-yes-status-grid">
+      <div class="card" data-g="s2yesstatus" data-v="Fully modeled and ready for visualization"><div class="card__label">The project is fully modeled and ready for visualization</div></div>
+      <div class="card" data-g="s2yesstatus" data-v="Mostly modeled, may need adjustments"><div class="card__label">The project is mostly modeled but may require adjustments</div></div>
+      <div class="card" data-g="s2yesstatus" data-v="Modeled but requires review and cleanup"><div class="card__label">The project is modeled but requires review and cleanup</div></div>
+    </div>
+  </div>
+
+  <!-- PARTIALLY branch -->
+  <div class="expand" id="s2-partial-ex">
+    <div class="cg">
+      <div class="cg__label" id="s2-parts-lbl">Which parts are already modeled?</div>
+      <div class="chips">
+        <button class="chip" data-m="s2partialParts" data-v="Exterior only">Exterior only</button>
+        <button class="chip" data-m="s2partialParts" data-v="Interior only">Interior only</button>
+        <button class="chip" data-m="s2partialParts" data-v="Exterior and Interior">Exterior and Interior</button>
+        <button class="chip" data-m="s2partialParts" data-v="Structure only">Structure only</button>
+        <button class="chip" data-m="s2partialParts" data-v="Other">Other</button>
+      </div>
+    </div>
+
+    <div class="sec-lbl" id="s2-partial-status-lbl">What is the current model status?</div>
+    <div class="cgrid" id="s2-partial-status-grid">
+      <div class="card" data-g="s2partialstatus" data-v="Highly detailed"><div class="card__label">Highly detailed</div></div>
+      <div class="card" data-g="s2partialstatus" data-v="Moderately detailed"><div class="card__label">Moderately detailed</div></div>
+      <div class="card" data-g="s2partialstatus" data-v="Concept level only"><div class="card__label">Concept level only</div></div>
+    </div>
+  </div>
+
+  <!-- NO branch -->
+  <div class="expand" id="s2-no-ex">
+    <div class="cg">
+      <div class="cg__label" id="s2-nosvcs-lbl">Modeling services required</div>
+      <div class="chips">
+        <button class="chip" data-m="s2noServices" data-v="I need the entire project modeled">I need the entire project modeled</button>
+        <button class="chip" data-m="s2noServices" data-v="Exterior modeling only">Exterior modeling only</button>
+        <button class="chip" data-m="s2noServices" data-v="Interior modeling only">Interior modeling only</button>
+        <button class="chip" data-m="s2noServices" data-v="Landscape modeling">Landscape modeling</button>
+        <button class="chip" data-m="s2noServices" data-v="Furniture and decoration modeling">Furniture and decoration modeling</button>
+      </div>
+    </div>
+
+    <div class="cg">
+      <div class="cg__label" id="s2-nomats-lbl">Available project materials</div>
+      <div class="chips">
+        <button class="chip" data-m="s2noMaterials" data-v="Floor plans">Floor plans</button>
+        <button class="chip" data-m="s2noMaterials" data-v="Elevations">Elevations</button>
+        <button class="chip" data-m="s2noMaterials" data-v="Sections">Sections</button>
+        <button class="chip" data-m="s2noMaterials" data-v="PDF drawings">PDF drawings</button>
+        <button class="chip" data-m="s2noMaterials" data-v="CAD files">CAD files</button>
+        <button class="chip" data-m="s2noMaterials" data-v="Reference images">Reference images</button>
+        <button class="chip" data-m="s2noMaterials" data-v="Mood board">Mood board</button>
+        <button class="chip" data-m="s2noMaterials" data-v="Other">Other</button>
+      </div>
+    </div>
+    <div class="qfield" id="s2-nomats-other-field" style="display:none">
+      <input type="text" id="f-s2-nomats-other" />
+      <label for="f-s2-nomats-other">Please specify</label>
+    </div>
+  </div>
+  <!-- ─── END 3D Model Availability ─── -->
+
   <div class="yn-section">
     <div class="yn-row"><span class="yn-label" id="label-ext-service">Exterior Images</span><div class="yn-btns"><button class="yn-btn" data-svc="ext" data-v="yes">YES</button><button class="yn-btn" data-svc="ext" data-v="no">NO</button></div></div>
     <div class="expand" id="ext-ex">
@@ -500,14 +598,17 @@ const S = {
   fp:{on:false,qty:'',typo:'',notes:''},
   model:'',modelFmt:[],modelFmtCustom:'',matDef:'',matRefs:'',matNotes:'',
   land:'',human:'',atm:'',style:'',sceneNotes:'',
-  deadline:'',notes:''
+  deadline:'',notes:'',
+  s2model:'',s2fmt:[],s2fmtCustom:'',s2intModeled:'',s2yesStatus:'',
+  s2partialParts:[],s2partialStatus:'',
+  s2noServices:[],s2noMaterials:[],s2noMaterialsOther:''
 };
 
 /* arrays for multi-select */
-const MULTI = {'ext-views':S.ext.views,'ext-mood':S.ext.mood,'int-spaces':S.int.spaces,'model-fmt':S.modelFmt};
+const MULTI = {'ext-views':S.ext.views,'ext-mood':S.ext.mood,'int-spaces':S.int.spaces,'model-fmt':S.modelFmt,'s2fmt':S.s2fmt,'s2partialParts':S.s2partialParts,'s2noServices':S.s2noServices,'s2noMaterials':S.s2noMaterials};
 
 /* group-name → state key */
-const GMAP = {type:'type',model:'model',matdef:'matDef',land:'land',human:'human'};
+const GMAP = {type:'type',model:'model',matdef:'matDef',land:'land',human:'human',s2model:'s2model',s2intmod:'s2intModeled',s2yesstatus:'s2yesStatus',s2partialstatus:'s2partialStatus'};
 
 let cur = 1;
 let lang = 'en';
@@ -614,6 +715,18 @@ TRANSLATIONS_PT['Scope'] = 'Escopo';
 TRANSLATIONS_PT['Format'] = 'Formato';
 // PDF title
 TRANSLATIONS_PT['.pv-brand'] = 'BOHRER ARCHVIZ — Orçamento de Projeto';
+// S2 3D Model Availability — selector translations
+TRANSLATIONS_PT['#s2-model-lbl'] = 'Disponibilidade de Modelo 3D';
+TRANSLATIONS_PT['#s2-model-q'] = 'Você já tem um modelo 3D do projeto?';
+TRANSLATIONS_PT['#s2-fmt-lbl'] = 'Formato do Arquivo 3D';
+TRANSLATIONS_PT['#s2-intmod-lbl'] = 'Os interiores já estão modelados?';
+TRANSLATIONS_PT['#s2-yes-status-lbl'] = 'Qual é o status atual do modelo?';
+TRANSLATIONS_PT['#s2-parts-lbl'] = 'Quais partes já estão modeladas?';
+TRANSLATIONS_PT['#s2-partial-status-lbl'] = 'Qual é o status atual do modelo?';
+TRANSLATIONS_PT['#s2-nosvcs-lbl'] = 'Serviços de modelagem necessários';
+TRANSLATIONS_PT['#s2-nomats-lbl'] = 'Materiais disponíveis do projeto';
+TRANSLATIONS_PT['label[for="f-s2-fmt-other"]'] = 'Especifique';
+TRANSLATIONS_PT['label[for="f-s2-nomats-other"]'] = 'Especifique';
 
 const LABEL_PT = {
   'House': 'Casa',
@@ -665,6 +778,29 @@ const LABEL_PT = {
   'Yes — Full': 'Sim — Completo',
   'Minimal': 'Minimalista'
 };
+// S2 3D model availability — chip/card label translations
+LABEL_PT['Fully modeled and ready for visualization'] = 'Completamente modelado e pronto para visualização';
+LABEL_PT['Mostly modeled, may need adjustments'] = 'Quase completamente modelado, pode precisar de ajustes';
+LABEL_PT['Modeled but requires review and cleanup'] = 'Modelado mas requer revisão e limpeza';
+LABEL_PT['Highly detailed'] = 'Altamente detalhado';
+LABEL_PT['Moderately detailed'] = 'Moderadamente detalhado';
+LABEL_PT['Concept level only'] = 'Apenas nível conceitual';
+LABEL_PT['I need the entire project modeled'] = 'Preciso do projeto completo modelado';
+LABEL_PT['Exterior modeling only'] = 'Apenas modelagem exterior';
+LABEL_PT['Interior modeling only'] = 'Apenas modelagem interior';
+LABEL_PT['Landscape modeling'] = 'Modelagem de paisagem';
+LABEL_PT['Furniture and decoration modeling'] = 'Modelagem de móveis e decoração';
+LABEL_PT['Floor plans'] = 'Plantas baixas';
+LABEL_PT['Elevations'] = 'Elevações';
+LABEL_PT['Sections'] = 'Cortes';
+LABEL_PT['PDF drawings'] = 'Desenhos PDF';
+LABEL_PT['CAD files'] = 'Arquivos CAD';
+LABEL_PT['Reference images'] = 'Imagens de referência';
+LABEL_PT['Mood board'] = 'Moodboard';
+LABEL_PT['Exterior only'] = 'Apenas exterior';
+LABEL_PT['Interior only'] = 'Apenas interior';
+LABEL_PT['Exterior and Interior'] = 'Exterior e interior';
+LABEL_PT['Structure only'] = 'Apenas estrutura';
 
 function detectLang(){
   // 1) URL parameter ?lang=pt|en takes precedence — be liberal in parsing
@@ -871,6 +1007,13 @@ PT_LABELS['← Previous'] = '← Anterior';
 PT_LABELS['YES'] = 'SIM';
 PT_LABELS['NO'] = 'NÃO';
 
+// S2 3D model availability — review/print label translations
+PT_LABELS['3D Model Availability'] = 'Disponibilidade de Modelo 3D';
+PT_LABELS['Interiors Modeled'] = 'Interiores Modelados';
+PT_LABELS['Model Status'] = 'Status do Modelo';
+PT_LABELS['Parts Modeled'] = 'Partes Modeladas';
+PT_LABELS['Modeling Services'] = 'Serviços de Modelagem';
+PT_LABELS['Available Materials'] = 'Materiais Disponíveis';
 function t(label){
   return lang === 'pt' ? (PT_LABELS[label] || label) : label;
 }
@@ -910,6 +1053,26 @@ document.querySelectorAll('.card[data-g]').forEach(function(card){
         toggleOtherField('model-fmt-other-field', false);
       }
     }
+    if(g==='s2model'){
+      document.getElementById('s2-yes-ex').classList.toggle('open', card.dataset.v==='Yes');
+      document.getElementById('s2-partial-ex').classList.toggle('open', card.dataset.v==='Partially');
+      document.getElementById('s2-no-ex').classList.toggle('open', card.dataset.v==='No');
+      if(card.dataset.v!=='Yes'){
+        S.s2fmt.splice(0);S.s2fmtCustom='';S.s2intModeled='';S.s2yesStatus='';
+        document.querySelectorAll('.chip[data-m="s2fmt"]').forEach(function(c){c.classList.remove('on');});
+        document.querySelectorAll('.card[data-g="s2intmod"],.card[data-g="s2yesstatus"]').forEach(function(c){c.classList.remove('on');});
+        toggleOtherField('s2-fmt-other-field',false);
+      }
+      if(card.dataset.v!=='Partially'){
+        S.s2partialParts.splice(0);S.s2partialStatus='';
+        document.querySelectorAll('.chip[data-m="s2partialParts"],.card[data-g="s2partialstatus"]').forEach(function(c){c.classList.remove('on');});
+      }
+      if(card.dataset.v!=='No'){
+        S.s2noServices.splice(0);S.s2noMaterials.splice(0);S.s2noMaterialsOther='';
+        document.querySelectorAll('.chip[data-m="s2noServices"],.chip[data-m="s2noMaterials"]').forEach(function(c){c.classList.remove('on');});
+        toggleOtherField('s2-nomats-other-field',false);
+      }
+    }
   });
 });
 
@@ -944,6 +1107,14 @@ document.querySelectorAll('.chip[data-m]').forEach(function(chip){
       toggleOtherField('model-fmt-other-field', chip.classList.contains('on'));
       if(!chip.classList.contains('on')) S.modelFmtCustom='';
     }
+    if(chip.dataset.m==='s2fmt' && chip.dataset.v==='Other'){
+      toggleOtherField('s2-fmt-other-field', chip.classList.contains('on'));
+      if(!chip.classList.contains('on')) S.s2fmtCustom='';
+    }
+    if(chip.dataset.m==='s2noMaterials' && chip.dataset.v==='Other'){
+      toggleOtherField('s2-nomats-other-field', chip.classList.contains('on'));
+      if(!chip.classList.contains('on')) S.s2noMaterialsOther='';
+    }
   });
 });
 
@@ -969,7 +1140,7 @@ document.querySelectorAll('.qfield input:not([type="date"]),.qfield textarea').f
   el.addEventListener('input',upd);
 });
 
-[['f-type-other','typeCustom'],['f-ext-other','ext.otherView'],['f-int-other','int.otherSpace'],['f-model-fmt-other','modelFmtCustom']].forEach(function(pair){
+[['f-type-other','typeCustom'],['f-ext-other','ext.otherView'],['f-int-other','int.otherSpace'],['f-model-fmt-other','modelFmtCustom'],['f-s2-fmt-other','s2fmtCustom'],['f-s2-nomats-other','s2noMaterialsOther']].forEach(function(pair){
   var input=document.getElementById(pair[0]);
   if(!input) return;
   input.addEventListener('input',function(){
@@ -1033,6 +1204,8 @@ document.getElementById('s2-nxt').addEventListener('click',function(){
     S.vid.refs=document.getElementById('f-vid-refs').value.trim();
   }
   if(S.fp.on){S.fp.qty=document.getElementById('f-fp-qty').value.trim();S.fp.typo=document.getElementById('f-fp-typo').value.trim();S.fp.notes=document.getElementById('f-fp-notes').value.trim();}
+  if(S.s2model==='Yes') S.s2fmtCustom=document.getElementById('f-s2-fmt-other').value.trim();
+  if(S.s2model==='No') S.s2noMaterialsOther=document.getElementById('f-s2-nomats-other').value.trim();
   goTo(3);
 });
 
@@ -1085,8 +1258,17 @@ function buildReview(){
   svcRows.push([t('Floor Plans'), S.fp.on ? yesText : noText]);
   if(S.fp.on){svcRows.push([t('→ Quantity'), S.fp.qty||'—'],[t('→ Typologies'), S.fp.typo||'—']);}
 
+  var mdRows=[[t('3D Model'),S.s2model||'—']];
+  if(S.s2model==='Yes'){
+    mdRows.push([t('File Format'),formatList(S.s2fmt,S.s2fmtCustom)||'—'],[t('Interiors Modeled'),S.s2intModeled||'—'],[t('Model Status'),S.s2yesStatus||'—']);
+  } else if(S.s2model==='Partially'){
+    mdRows.push([t('Parts Modeled'),formatList(S.s2partialParts,'')||'—'],[t('Model Status'),S.s2partialStatus||'—']);
+  } else if(S.s2model==='No'){
+    mdRows.push([t('Modeling Services'),formatList(S.s2noServices,'')||'—'],[t('Available Materials'),formatList(S.s2noMaterials,S.s2noMaterialsOther)||'—']);
+  }
   document.getElementById('rev-content').innerHTML=
     revGroup(t('Client & Project'),[[t('Name'),S.name],[t('Company'),S.company||'—'],[t('Project'),S.proj],[t('E-mail'),S.email],[t('Phone'),S.phone||'—'],[t('Location'),S.loc||'—'],[t('Project Type'),displayType()]])+
+    revGroup(t('3D Model Availability'),mdRows)+
     revGroup(t('Services'),svcRows)+
     revGroup(t('Available Material'),[[t('3D Model'),S.model||'—'],[t('File Format'),formatList(S.modelFmt,S.modelFmtCustom)||'—'],[t('Materials Defined'),S.matDef||'—'],[t('References'),S.matRefs||'—'],[t('Notes'),S.matNotes||'—']])+
     revGroup(t('Scene & Expectations'),[[t('Landscape'),S.land||'—'],[t('Humanization'),S.human||'—'],[t('Atmosphere'),S.atm||'—'],[t('Style'),S.style||'—'],[t('Special Requests'),S.sceneNotes||'—']])+
@@ -1101,6 +1283,13 @@ function buildPrint(){
   document.getElementById('pv-date').textContent = dateLabel + new Date().toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-GB',{day:'2-digit',month:'long',year:'numeric'});
   var sections=[
     {t:t('Client & Project'),r:[[t('Name'),S.name],[t('Company'),S.company||'—'],[t('Project'),S.proj],[t('E-mail'),S.email],[t('Phone'),S.phone||'—'],[t('Location'),S.loc||'—'],[t('Project Type'),displayType()||'—']]},
+    {t:t('3D Model Availability'),r:(function(){
+      var r=[[t('3D Model'),S.s2model||'—']];
+      if(S.s2model==='Yes'){r.push([t('File Format'),formatList(S.s2fmt,S.s2fmtCustom)||'—'],[t('Interiors Modeled'),S.s2intModeled||'—'],[t('Model Status'),S.s2yesStatus||'—']);}
+      else if(S.s2model==='Partially'){r.push([t('Parts Modeled'),formatList(S.s2partialParts,'')||'—'],[t('Model Status'),S.s2partialStatus||'—']);}
+      else if(S.s2model==='No'){r.push([t('Modeling Services'),formatList(S.s2noServices,'')||'—'],[t('Available Materials'),formatList(S.s2noMaterials,S.s2noMaterialsOther)||'—']);}
+      return r;
+    })()},
     {t:t('Services'),r:(function(){
       var r=[[t('Exterior Images'),S.ext.on ? yesText : noText]];
       if(S.ext.on){r.push([t('Ext. Quantity'),S.ext.qty||'—'],[t('Views'),formatList(S.ext.views,S.ext.otherView)], [t('Mood'),formatList(S.ext.mood,'')]);}
@@ -1147,6 +1336,13 @@ function syncNetlifyFormFields(){
   setHiddenField('location',S.loc);
   setHiddenField('project-type',displayType());
   setHiddenField('project-type-custom',S.typeCustom);
+  setHiddenField('s2-3d-model',S.s2model);
+  setHiddenField('s2-file-format',formatList(S.s2fmt,S.s2fmtCustom));
+  setHiddenField('s2-interiors-modeled',S.s2intModeled);
+  setHiddenField('s2-model-status',S.s2model==='Yes'?S.s2yesStatus:S.s2model==='Partially'?S.s2partialStatus:'');
+  setHiddenField('s2-parts-modeled',formatList(S.s2partialParts,''));
+  setHiddenField('s2-modeling-services',formatList(S.s2noServices,''));
+  setHiddenField('s2-available-materials',formatList(S.s2noMaterials,S.s2noMaterialsOther));
   setHiddenField('exterior-images',S.ext.on ? 'Yes' : 'No');
   setHiddenField('ext-quantity',S.ext.qty);
   setHiddenField('exterior-views',formatList(S.ext.views,S.ext.otherView));
