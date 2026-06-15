@@ -89,6 +89,10 @@
     <article class="tile t19 reveal" style="--stripe-a:#e6e6e6;--stripe-b:#f0f0f0;--stripe-angle:95deg"><div class="tile__img"></div></article>
     <article class="tile t20 reveal" style="--stripe-a:#dadada;--stripe-b:#e7e7e7;--stripe-angle:15deg"><div class="tile__img"></div></article>
   </div>
+  <div class="carousel-controls carousel-controls--portfolio">
+    <button type="button" class="carousel__button carousel__button--prev" data-carousel="portfolio" aria-label="Previous project">‹</button>
+    <button type="button" class="carousel__button carousel__button--next" data-carousel="portfolio" aria-label="Next project">›</button>
+  </div>
 </section>
 
 <!-- ============ VIDEOS REEL ============ -->
@@ -116,6 +120,10 @@
       </div>
     </button>
 
+  </div>
+  <div class="carousel-controls carousel-controls--videos">
+    <button type="button" class="carousel__button carousel__button--prev" data-carousel="videos" aria-label="Previous video">‹</button>
+    <button type="button" class="carousel__button carousel__button--next" data-carousel="videos" aria-label="Next video">›</button>
   </div>
 </section>
 
@@ -190,6 +198,10 @@
       </div>
     </article>
   </div>
+  <div class="carousel-controls carousel-controls--services">
+    <button type="button" class="carousel__button carousel__button--prev" data-carousel="services" aria-label="Previous service">‹</button>
+    <button type="button" class="carousel__button carousel__button--next" data-carousel="services" aria-label="Next service">›</button>
+  </div>
   <div class="services__cta reveal">
     <a href="#contact" class="btn-line" data-scroll>
       <span data-i18n="services.cta">FALAR CONOSCO</span>
@@ -263,6 +275,10 @@
     <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Quality you can feel in every frame. The renders set a new bar for our marketing materials.</p></div><div class="quote__author"><strong>LAUREN WALSH</strong></div></article>
     <article class="quote"><div><div class="quote__mark">“</div><p class="quote__text">Bruno is one of those rare professionals who turns up with both craft and real care for the work.</p></div><div class="quote__author"><strong>BEN RUSSELL</strong></div></article>
   </div>
+  <div class="carousel-controls carousel-controls--testimonials">
+    <button type="button" class="carousel__button carousel__button--prev" data-carousel="testimonials" aria-label="Previous testimonial">‹</button>
+    <button type="button" class="carousel__button carousel__button--next" data-carousel="testimonials" aria-label="Next testimonial">›</button>
+  </div>
 </section>
 
 <!-- ============ FOUNDER ============ -->
@@ -292,6 +308,10 @@
       <div>
         <h2 class="contact__lead-title reveal" data-i18n="contact.title">Vamos conversar</h2>
         <p class="contact__lead-sub reveal" data-i18n="contact.lead">Nos conte mais sobre o seu projeto.</p>
+        <a href="quote.html" class="btn-quote reveal">
+          <span data-i18n="contact.quote">GET A QUOTE</span>
+          <svg viewBox="0 0 24 10" aria-hidden="true"><path d="M0 5 L22 5 M17 1 L22 5 L17 9"/></svg>
+        </a>
       </div>
 
       <div class="contact-info">
@@ -394,6 +414,30 @@
     </div>
   </div>
 </section>
+
+<script>
+// Ensure the Get a Quote link includes the current site language as a query parameter
+;(function(){
+  function detectSiteLang(){
+    var s = localStorage.getItem('ba-lang');
+    if(s === 'pt' || s === 'en') return s;
+    var doc = (document.documentElement.lang||'').toLowerCase();
+    if(doc.indexOf('pt')===0) return 'pt';
+    var nav = (navigator.language||navigator.userLanguage||'').toLowerCase();
+    return nav.indexOf('pt')===0 ? 'pt' : 'en';
+  }
+  var lang = detectSiteLang();
+  var a = document.querySelector('.btn-quote');
+  if(a){
+    var url = new URL(a.getAttribute('href')||'quote.html', location.href);
+    url.searchParams.set('lang', lang);
+    a.setAttribute('href', url.pathname + url.search);
+    // update visible label inside the link to match site language
+    var span = a.querySelector('span');
+    if(span){ span.textContent = (lang === 'pt' ? 'PEDIR ORÇAMENTO' : 'GET A QUOTE'); }
+  }
+})();
+</script>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">

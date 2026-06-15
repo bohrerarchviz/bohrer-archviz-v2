@@ -48,6 +48,7 @@ const I18N = {
     "contact.whats": "Telefone",
     "contact.message": "Mensagem",
     "contact.send": "ENVIAR MENSAGEM",
+    "contact.quote": "PEDIR ORÇAMENTO",
 
     "info.1.title": "Resposta rápida.",
     "info.1.desc": "Se você está pronto para criar e colaborar com a gente, adoraríamos ouvir você.",
@@ -118,6 +119,7 @@ const I18N = {
     "contact.whats": "Phone",
     "contact.message": "Message",
     "contact.send": "SEND MESSAGE",
+    "contact.quote": "GET A QUOTE",
 
     "info.1.title": "Quick reply.",
     "info.1.desc": "If you're ready to create and collaborate with us, we'd love to hear from you.",

@@ -27,8 +27,18 @@
 
   /* ---------- i18n ---------- */
   let lang = "en";
+  function updateQuoteLink(next) {
+    const a = document.querySelector('.btn-quote');
+    if (!a) return;
+    const url = new URL(a.getAttribute('href') || 'quote.html', location.href);
+    url.searchParams.set('lang', next);
+    a.setAttribute('href', url.pathname + url.search);
+    const span = a.querySelector('span');
+    if (span) span.textContent = next === 'pt' ? 'PEDIR ORÇAMENTO' : 'GET A QUOTE';
+  }
   function applyLang(next) {
     lang = next;
+    localStorage.setItem('ba-lang', lang);
     const dict = window.I18N[lang];
     $$("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
@@ -42,11 +52,12 @@
     document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
     if (lenis) lenis.resize();
     ScrollTrigger.refresh();
+    updateQuoteLink(lang);
   }
   $$(".nav__lang button").forEach(b => {
     b.addEventListener("click", () => applyLang(b.dataset.lang));
   });
-  applyLang("en");
+  applyLang(localStorage.getItem('ba-lang') === 'pt' ? 'pt' : 'en');
 
   /* ---------- Hero entrance ---------- */
   const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
@@ -194,29 +205,97 @@
     });
   });
 
-  /* ---------- Testimonials marquee ---------- */
+  const initHorizontalCarousel = (selector, prevSelector, nextSelector) => {
+    const container = $(selector);
+    const prevBtn = document.querySelector(prevSelector);
+    const nextBtn = document.querySelector(nextSelector);
+    if (!container || !prevBtn || !nextBtn) return;
+
+    const items = Array.from(container.children);
+    let index = 0;
+    const gap = parseInt(window.getComputedStyle(container).gap, 10) || 18;
+    const itemWidth = () => items[0]?.offsetWidth || container.clientWidth;
+
+    const updateButtons = () => {
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index >= items.length - 1;
+    };
+
+    const scrollToIndex = (newIndex) => {
+      index = Math.min(Math.max(0, newIndex), items.length - 1);
+      const target = items[index];
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      }
+      updateButtons();
+    };
+
+    prevBtn.addEventListener("click", () => scrollToIndex(index - 1));
+    nextBtn.addEventListener("click", () => scrollToIndex(index + 1));
+    container.addEventListener("scroll", () => {
+      const total = itemWidth() + gap;
+      const newIndex = Math.round(container.scrollLeft / total);
+      if (newIndex !== index) {
+        index = newIndex;
+        updateButtons();
+      }
+    });
+    window.addEventListener("resize", () => scrollToIndex(index));
+    scrollToIndex(0);
+    return { scrollToIndex, get index() { return index; }, prevBtn, nextBtn, items };
+  };
+
+  /* ---------- Testimonials marquee / mobile carousel ---------- */
   const marquee = $(".marquee");
   if (marquee) {
-    const items = Array.from(marquee.children);
-    items.forEach(n => marquee.appendChild(n.cloneNode(true)));
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      const testimonialsCarousel = initHorizontalCarousel(".marquee", ".carousel__button--prev[data-carousel='testimonials']", ".carousel__button--next[data-carousel='testimonials']");
+      if (testimonialsCarousel) {
+        let testimonialTimer = setInterval(() => {
+          const totalItems = testimonialsCarousel.items.length;
+          const nextIndex = testimonialsCarousel.index >= totalItems - 1 ? 0 : testimonialsCarousel.index + 1;
+          testimonialsCarousel.scrollToIndex(nextIndex);
+        }, 4000);
 
-    let mqTween;
-    const startMarquee = () => {
-      const totalWidth = marquee.scrollWidth / 2;
-      mqTween = gsap.to(marquee, {
-        x: -totalWidth,
-        duration: totalWidth / 40,
-        ease: "none",
-        repeat: -1,
-        modifiers: {
-          x: gsap.utils.unitize(x => parseFloat(x) % -totalWidth)
-        }
-      });
-    };
-    requestAnimationFrame(() => requestAnimationFrame(startMarquee));
+        [testimonialsCarousel.prevBtn, testimonialsCarousel.nextBtn].forEach(btn => {
+          btn.addEventListener("click", () => {
+            clearInterval(testimonialTimer);
+            testimonialTimer = setInterval(() => {
+              const totalItems = testimonialsCarousel.items.length;
+              const nextIndex = testimonialsCarousel.index >= totalItems - 1 ? 0 : testimonialsCarousel.index + 1;
+              testimonialsCarousel.scrollToIndex(nextIndex);
+            }, 4000);
+          });
+        });
+      }
+    } else {
+      const items = Array.from(marquee.children);
+      items.forEach(n => marquee.appendChild(n.cloneNode(true)));
 
-    marquee.addEventListener("mouseenter", () => mqTween && mqTween.pause());
-    marquee.addEventListener("mouseleave", () => mqTween && mqTween.play());
+      let mqTween;
+      const startMarquee = () => {
+        const totalWidth = marquee.scrollWidth / 2;
+        mqTween = gsap.to(marquee, {
+          x: -totalWidth,
+          duration: totalWidth / 40,
+          ease: "none",
+          repeat: -1,
+          modifiers: {
+            x: gsap.utils.unitize(x => parseFloat(x) % -totalWidth)
+          }
+        });
+      };
+      requestAnimationFrame(() => requestAnimationFrame(startMarquee));
+
+      marquee.addEventListener("mouseenter", () => mqTween && mqTween.pause());
+      marquee.addEventListener("mouseleave", () => mqTween && mqTween.play());
+    }
+  }
+
+  if (window.matchMedia("(max-width: 767px)").matches) {
+    initHorizontalCarousel(".portfolio", ".carousel__button--prev[data-carousel='portfolio']", ".carousel__button--next[data-carousel='portfolio']");
+    initHorizontalCarousel(".videos__row", ".carousel__button--prev[data-carousel='videos']", ".carousel__button--next[data-carousel='videos']");
+    initHorizontalCarousel(".services__grid", ".carousel__button--prev[data-carousel='services']", ".carousel__button--next[data-carousel='services']");
   }
 
   /* ---------- Founder parallax ---------- */

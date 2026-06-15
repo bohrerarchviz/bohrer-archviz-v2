@@ -1,0 +1,1256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Get a Quote — BOHRER ARCHVIZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=ABeeZee:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff;--ink:#0a0a0a;--soft:#2a2a2a;--muted:#6b6b6b;--line:#c0c0c0;--hover:#f5f5f5;--err:#b00;
+  --r:16px;--ease:cubic-bezier(.65,0,.35,1);
+  --f:"Montserrat","Helvetica Neue",sans-serif;
+  --fm:"ABeeZee","Helvetica Neue",sans-serif;
+}
+html,body{background:transparent;color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+body{background:transparent}
+a{color:inherit;text-decoration:none} button{cursor:pointer;font-family:inherit} input,textarea{font-family:inherit}
+#page-bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;pointer-events:none;opacity:.92;filter:brightness(.7) saturate(1.1)}
+
+/* HEADER */
+.qh{position:fixed;top:0;left:0;width:100%;height:64px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px) saturate(1.6);-webkit-backdrop-filter:blur(12px) saturate(1.6);border-bottom:1px solid var(--line);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 44px}
+.qh__logo img{height:26px;width:auto;display:block}
+.qh__logo-text{font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;display:none}
+.qh__back{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:8px 18px;transition:background .3s,color .3s,border-color .3s,transform .3s var(--ease)}
+.qh__back:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:translateY(-1px)}
+
+/* PROGRESS */
+.qprog{position:fixed;top:64px;left:0;width:100%;height:2px;background:var(--line);z-index:99}
+.qprog__fill{height:100%;background:var(--ink);transition:width .7s var(--ease);will-change:width}
+
+/* LAYOUT */
+.qmain{min-height:100vh;padding:112px 40px 100px;display:flex;justify-content:center}
+.qcontent{width:100%;max-width:760px;background:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.65);border-radius:32px;backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:0 50px 120px rgba(0,0,0,.25);position:relative;z-index:1;padding:48px 54px}
+
+/* STEPS */
+.qstep{display:none}
+.qstep.on{display:block}
+.qstep.entering{animation:fadeUp .5s var(--ease) forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+/* STEP HEADER */
+.qstep__ey{font-family:var(--fm);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.qstep__title{font-weight:700;font-size:clamp(30px,4.5vw,52px);line-height:1.04;letter-spacing:-.025em;margin-bottom:24px}
+.qstep__sub{font-size:14px;color:var(--soft);line-height:1.65;margin-bottom:44px;max-width:540px}
+
+/* SELECTABLE CARDS */
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:32px}
+.cgrid.c2{grid-template-columns:repeat(2,1fr)}
+.card{border:1px solid var(--line);border-radius:var(--r);padding:22px 16px 18px;cursor:pointer;user-select:none;text-align:center;background:var(--bg);color:var(--ink);transition:border-color .2s,background .2s,color .2s,transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card:hover{border-color:var(--soft);transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(0,0,0,.1)}
+.card.on{background:var(--ink);color:#fff;border-color:var(--ink);transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(0,0,0,.24)}
+.card__icon{margin-bottom:12px}.card__icon svg{width:32px;height:32px;stroke:currentColor;stroke-width:1;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.card__label{font-weight:600;font-size:13px;letter-spacing:-.005em;line-height:1.3}
+
+/* YES / NO SECTION */
+.yn-section{border-top:1px solid var(--line);margin-bottom:24px}
+.yn-row{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid var(--line)}
+.yn-label{font-weight:600;font-size:15px;letter-spacing:-.01em}
+.yn-btns{display:flex;gap:8px}
+.yn-btn{border:1px solid var(--line);border-radius:999px;padding:8px 22px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:none;color:var(--ink);transition:background .2s,color .2s,border-color .2s,transform .25s var(--ease)}
+.yn-btn:hover{border-color:var(--soft);transform:translateY(-1px)}
+.yn-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* EXPANDABLE */
+.expand{max-height:0;overflow:hidden;opacity:0;transition:max-height .6s var(--ease),opacity .4s var(--ease),padding .4s var(--ease);padding-top:0}
+.expand.open{max-height:2000px;opacity:1;padding-top:24px}
+
+/* CHIPS */
+.cg{margin-bottom:26px}
+.cg__label{font-family:var(--fm);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:12px;font-weight:500;background:none;color:var(--ink);transition:border-color .2s,background .2s,color .2s,transform .25s var(--ease)}
+.chip:hover{border-color:var(--soft);transform:translateY(-1px)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* FORM FIELDS */
+.qfields{display:flex;flex-direction:column}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.qfield{position:relative;margin-bottom:24px}
+.qfield input,.qfield textarea{width:100%;background:none;border:none;border-bottom:1px solid var(--line);font-family:inherit;font-size:16px;color:var(--ink);padding:22px 0 8px;outline:none;resize:none;transition:border-bottom-width .25s var(--ease),padding-bottom .25s var(--ease)}
+.qfield input[type="date"]{padding-top:28px}
+.qfield textarea{min-height:80px}
+.qfield label{position:absolute;left:0;top:22px;font-size:15px;color:var(--muted);pointer-events:none;transform-origin:0 0;transition:transform .35s var(--ease),color .25s}
+.qfield.act label,.qfield.has label{transform:translateY(-20px) scale(.72);color:var(--ink);letter-spacing:.04em}
+.qfield input[type="date"]+label{transform:translateY(-20px) scale(.72);letter-spacing:.04em;color:var(--ink)}
+.qfield input:focus,.qfield textarea:focus{border-bottom-width:2px;padding-bottom:7px}
+.qfield.ferr input,.qfield.ferr textarea{border-bottom-color:var(--err)}
+.qfield.ferr label{color:var(--err)}
+.err-msg{font-size:12px;color:var(--err);margin-top:5px;display:none;font-style:italic}
+.err-msg.show{display:block}
+
+/* SECTION LABEL */
+.sec-lbl{font-family:var(--fm);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin:28px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.sec-lbl:first-child{margin-top:0}
+
+/* NAV */
+.qnav{display:flex;align-items:center;justify-content:space-between;margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+.qnav__back{background:none;border:none;font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;transition:color .25s,transform .3s var(--ease)}
+.qnav__back:hover{color:var(--ink);transform:translateX(-3px)}
+.qnav__back:disabled{opacity:0;pointer-events:none}
+.qnav__count{font-family:var(--fm);font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.qnav__next{display:inline-flex;align-items:center;gap:14px;padding:15px 30px;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:999px;font-family:var(--f);font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase;transition:background .3s,transform .4s var(--ease),box-shadow .4s var(--ease)}
+.qnav__next svg{width:18px;height:10px;stroke:#fff;stroke-width:1.2;fill:none;transition:transform .4s var(--ease)}
+.qnav__next:hover{background:var(--soft);transform:translateY(-3px);box-shadow:0 16px 32px -12px rgba(0,0,0,.22)}
+.qnav__next:hover svg{transform:translateX(5px)}
+.qnav__next:disabled{opacity:.6;cursor:wait;transform:none!important}
+
+/* REVIEW */
+.rev-group{margin-bottom:28px}
+.rev-group__title{font-family:var(--fm);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;font-weight:700}
+.rev-card{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.rev-row{display:grid;grid-template-columns:170px 1fr;padding:13px 20px;border-bottom:1px solid var(--line);gap:14px}
+.rev-row:last-child{border-bottom:none}
+.rev-row__k{font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.rev-row__v{font-size:13px;font-weight:500;line-height:1.55;color:var(--ink)}
+
+/* ACTION BUTTONS */
+.action-row{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
+.btn-ol{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border:1px solid var(--ink);border-radius:999px;font-family:var(--f);font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;background:none;color:var(--ink);transition:background .3s,transform .3s var(--ease)}
+.btn-ol:hover{background:var(--hover);transform:translateY(-2px)}
+.btn-ol svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.btn-sl{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:999px;font-family:var(--f);font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;transition:background .3s,transform .35s var(--ease),box-shadow .35s var(--ease)}
+.btn-sl:hover{background:var(--soft);transform:translateY(-2px);box-shadow:0 14px 28px -10px rgba(0,0,0,.2)}
+.btn-sl:disabled{opacity:.6;cursor:wait}
+.btn-sl svg{width:18px;height:10px;stroke:#fff;stroke-width:1.2;fill:none}
+
+/* FILE NOTE */
+.file-note{margin-top:28px;padding:20px 24px;border:1px solid var(--line);border-radius:var(--r);background:var(--hover)}
+.file-note p:first-child{font-family:var(--fm);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.file-note p:last-child{font-size:14px;color:var(--soft);line-height:1.65}
+.file-note a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+/* SUCCESS */
+.qsuccess{display:none;text-align:center;padding:80px 0;animation:fadeUp .6s var(--ease) both}
+.qsuccess.on{display:block}
+.qsuccess__check{width:68px;height:68px;border:1px solid var(--line);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:32px}
+.qsuccess__check svg{width:28px;height:28px;stroke:var(--ink);stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.qsuccess__title{font-weight:700;font-size:clamp(38px,6vw,64px);letter-spacing:-.025em;margin-bottom:16px;line-height:1.02}
+.qsuccess__sub{font-size:15px;color:var(--soft);max-width:440px;margin:0 auto 36px;line-height:1.65}
+.qsuccess__back{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border:1px solid var(--ink);border-radius:999px;font-family:var(--f);font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;transition:background .3s,color .3s,transform .3s var(--ease)}
+.qsuccess__back:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+
+/* PRINT */
+#pv{display:none}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{background:#fff!important;color:#000!important}
+  #page-bg-video{display:none!important}
+  .qh,.qprog,.qmain,#quote-form{display:none!important}
+  #pv{display:block!important;font-family:"Montserrat",sans-serif;font-size:12px;color:#000;padding:36px 44px;max-width:780px;margin:0 auto;background:#fff!important}
+  .pv-header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #000;padding-bottom:16px;margin-bottom:28px;flex-wrap:wrap}
+  .pv-brand{font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#000!important;width:100%}
+  .pv-contact{font-size:10px;letter-spacing:.08em;text-align:center;width:100%;margin-top:8px;color:#333;order:3}
+  .pv-date{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#333!important}
+  .pv-section{margin-bottom:22px;break-inside:avoid}
+  .pv-section__title{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:#000;border-bottom:1px solid #999;padding-bottom:5px;margin-bottom:9px;font-weight:800}
+  .pv-row{display:grid;grid-template-columns:155px 1fr;gap:6px;padding:5px 0;border-bottom:1px solid #ddd}
+  .pv-row:last-child{border-bottom:none}
+  .pv-row__k{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#333;font-weight:600}
+  .pv-row__v{font-size:11px;font-weight:500;color:#555}
+}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .qh{padding:0 18px;height:auto;flex-wrap:wrap;align-items:flex-start;row-gap:8px}
+  .qh__logo{width:100%;display:flex;justify-content:flex-start}
+  .qh__logo img{height:24px}
+  .qh__back{order:2;width:100%;justify-content:flex-start;padding:8px 14px;font-size:11px;margin-top:4px}
+  .qprog{top:58px}
+  .qmain{padding:84px 16px 62px}
+  .qcontent{padding:28px 16px;border-radius:22px}
+  .qstep__ey{font-size:10px;margin-bottom:10px}
+  .qstep__title{font-size:34px;line-height:1.05;margin-bottom:18px;max-width:100%}
+  .qstep__sub{font-size:13px;margin-bottom:28px}
+  .cgrid{grid-template-columns:1fr 1fr;gap:10px} .cgrid.c2{grid-template-columns:1fr 1fr}
+  .qgrid{grid-template-columns:1fr;gap:0 20px}
+  .qfield{margin-bottom:18px}
+  .qfield input,.qfield textarea{padding:18px 0 8px;font-size:14px}
+  .qfield label{font-size:13px}
+  .card{padding:16px 12px 14px}
+  .card__icon{margin-bottom:10px}
+  .card__label{font-size:12px}
+  .yn-row{padding:16px 0}
+  .yn-label{font-size:14px}
+  .yn-btn{padding:8px 16px;font-size:11px}
+  .chip{padding:8px 12px;font-size:11px}
+  .sec-lbl{margin:18px 0 10px}
+  .qnav{flex-direction:column-reverse;gap:12px;align-items:stretch;margin-top:28px;padding-top:22px}
+  .qnav__next{padding:12px 22px;font-size:11px}
+  .qnav__back{justify-content:center} .qnav__next{justify-content:center}
+  .qnav__back:disabled{display:none} .qnav__count{display:none}
+  .rev-row{grid-template-columns:1fr;gap:3px;padding:12px 16px}
+  .action-row{flex-direction:column} .btn-ol,.btn-sl{justify-content:center}
+}
+</style>
+</head>
+<body>
+<video id="page-bg-video" autoplay muted loop playsinline src="assets/videos/video_loop.mp4"></video>
+<header class="qh">
+  <a href="/" class="qh__logo">
+    <img src="assets/images/logo_website.png" alt="BOHRER ARCHVIZ" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+    <span class="qh__logo-text">BOHRER ARCHVIZ</span>
+  </a>
+  <a href="/" class="qh__back">← Back to site</a>
+</header>
+<div class="qprog"><div class="qprog__fill" id="qfill"></div></div>
+
+<main class="qmain"><div class="qcontent">
+
+<!-- ═══ STEP 01 — Client & Project ═══ -->
+<div class="qstep on" id="s1">
+  <div class="qstep__ey">Step 01 of 06 — Client &amp; Project</div>
+  <h1 class="qstep__title">Tell us about you<br>and your project.</h1>
+
+  <div class="qgrid">
+    <div class="qfield"><input id="f-name" type="text" autocomplete="name"/><label for="f-name">Full Name *</label><div class="err-msg">Name is required.</div></div>
+    <div class="qfield"><input id="f-company" type="text" autocomplete="organization"/><label for="f-company">Company / Studio</label></div>
+    <div class="qfield"><input id="f-proj" type="text"/><label for="f-proj">Project Name *</label><div class="err-msg">Project name is required.</div></div>
+    <div class="qfield"><input id="f-email" type="email" autocomplete="email"/><label for="f-email">E-mail *</label><div class="err-msg">Valid e-mail required.</div></div>
+    <div class="qfield"><input id="f-phone" type="tel" autocomplete="tel"/><label for="f-phone">Phone / WhatsApp</label></div>
+    <div class="qfield"><input id="f-loc" type="text"/><label for="f-loc">Project Location</label></div>
+  </div>
+
+  <div class="sec-lbl">Project Type *</div>
+  <div class="cgrid" id="type-grid">
+    <div class="card" data-g="type" data-v="House"><div class="card__icon"><svg viewBox="0 0 48 48"><path d="M6 22 L24 6 L42 22 L42 42 L6 42Z"/><path d="M18 42 L18 30 L30 30 L30 42"/></svg></div><div class="card__label">House</div></div>
+    <div class="card" data-g="type" data-v="Apartment"><div class="card__icon"><svg viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36"/><path d="M18 18h4M18 26h4M26 18h4M26 26h4M20 42v-8h8v8"/></svg></div><div class="card__label">Apartment</div></div>
+    <div class="card" data-g="type" data-v="Residential Building"><div class="card__icon"><svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="32"/><path d="M6 22h36M6 34h36M18 10v32M30 10v32"/></svg></div><div class="card__label">Residential Building</div></div>
+    <div class="card" data-g="type" data-v="Commercial"><div class="card__icon"><svg viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="28"/><path d="M6 22h36M6 30h36M18 14v28M30 14v28"/><path d="M16 6h16v8h-16z"/></svg></div><div class="card__label">Commercial</div></div>
+    <div class="card" data-g="type" data-v="Other"><div class="card__icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 16v8l6 6"/></svg></div><div class="card__label">Other</div></div>
+  </div>
+  <div class="qfield" id="proj-other-field" style="display:none"><input type="text" id="f-type-other" /><label for="f-type-other">Other project type</label></div>
+  <div class="err-msg" id="type-err">Please select a project type.</div>
+
+  <div class="qnav">
+    <button class="qnav__back" disabled>← Previous</button>
+    <span class="qnav__count">01 / 06</span>
+    <button class="qnav__next" id="s1-nxt">Continue <svg viewBox="0 0 24 10"><path d="M0 5L22 5M17 1L22 5L17 9"/></svg></button>
+  </div>
+</div>
+
+<!-- ═══ STEP 02 — Services ═══ -->
+<div class="qstep" id="s2">
+  <div class="qstep__ey">Step 02 of 06 — Services</div>
+  <h1 class="qstep__title">What services<br>do you need?</h1>
+  <p class="qstep__sub">Select Yes for each service. Detailed questions will expand automatically.</p>
+
+  <div class="yn-section">
+    <div class="yn-row"><span class="yn-label" id="label-ext-service">Exterior Images</span><div class="yn-btns"><button class="yn-btn" data-svc="ext" data-v="yes">YES</button><button class="yn-btn" data-svc="ext" data-v="no">NO</button></div></div>
+    <div class="expand" id="ext-ex">
+      <div class="qgrid"><div class="qfield"><input type="number" id="f-ext-qty" min="1"/><label for="f-ext-qty">Quantity of images *</label></div></div>
+      <div class="cg"><div class="cg__label">View Types</div><div class="chips">
+        <button class="chip" data-m="ext-views" data-v="Main Facade">Main Facade</button>
+        <button class="chip" data-m="ext-views" data-v="Rear Facade">Rear Facade</button>
+        <button class="chip" data-m="ext-views" data-v="Pool Area">Pool Area</button>
+        <button class="chip" data-m="ext-views" data-v="Garden">Garden</button>
+        <button class="chip" data-m="ext-views" data-v="Street View">Street View</button>
+        <button class="chip" data-m="ext-views" data-v="Aerial View">Aerial View</button>
+        <button class="chip" data-m="ext-views" data-v="Other">Other</button>
+      </div></div>
+      <div class="qfield" id="ext-other-field" style="display:none"><input type="text" id="f-ext-other" /><label for="f-ext-other">Other view type</label></div>
+      <div class="cg"><div class="cg__label">Mood / Time of Day</div><div class="chips">
+        <button class="chip" data-m="ext-mood" data-v="Blue Hour">Blue Hour</button>
+        <button class="chip" data-m="ext-mood" data-v="Morning">Morning</button>
+        <button class="chip" data-m="ext-mood" data-v="Afternoon">Afternoon</button>
+        <button class="chip" data-m="ext-mood" data-v="Golden Hour">Golden Hour</button>
+        <button class="chip" data-m="ext-mood" data-v="Sunset">Sunset</button>
+        <button class="chip" data-m="ext-mood" data-v="Night">Night</button>
+      </div></div>
+    </div>
+
+    <div class="yn-row"><span class="yn-label" id="label-int-service">Interior Images</span><div class="yn-btns"><button class="yn-btn" data-svc="int" data-v="yes">YES</button><button class="yn-btn" data-svc="int" data-v="no">NO</button></div></div>
+    <div class="expand" id="int-ex">
+      <div class="qgrid"><div class="qfield"><input type="number" id="f-int-qty" min="1"/><label for="f-int-qty">Quantity of images *</label></div></div>
+      <div class="cg"><div class="cg__label">Spaces Needed</div><div class="chips">
+        <button class="chip" data-m="int-spaces" data-v="Living Room">Living Room</button>
+        <button class="chip" data-m="int-spaces" data-v="Dining">Dining</button>
+        <button class="chip" data-m="int-spaces" data-v="Kitchen">Kitchen</button>
+        <button class="chip" data-m="int-spaces" data-v="Bedroom">Bedroom</button>
+        <button class="chip" data-m="int-spaces" data-v="Master Suite">Master Suite</button>
+        <button class="chip" data-m="int-spaces" data-v="Bathroom">Bathroom</button>
+        <button class="chip" data-m="int-spaces" data-v="Office">Office</button>
+        <button class="chip" data-m="int-spaces" data-v="Lobby">Lobby</button>
+        <button class="chip" data-m="int-spaces" data-v="Terrace">Terrace</button>
+        <button class="chip" data-m="int-spaces" data-v="Other">Other</button>
+      </div></div>
+      <div class="qfield" id="int-other-field" style="display:none"><input type="text" id="f-int-other" /><label for="f-int-other">Other space needed</label></div>
+    </div>
+
+    <div class="yn-row"><span class="yn-label" id="label-vid-service">Video &amp; Animation</span><div class="yn-btns"><button class="yn-btn" data-svc="vid" data-v="yes">YES</button><button class="yn-btn" data-svc="vid" data-v="no">NO</button></div></div>
+    <div class="expand" id="vid-ex">
+      <div class="cg"><div class="cg__label">Scope</div><div class="chips">
+        <button class="chip" data-g="vid-scope" data-v="Exterior">Exterior</button>
+        <button class="chip" data-g="vid-scope" data-v="Interior">Interior</button>
+        <button class="chip" data-g="vid-scope" data-v="Both">Both</button>
+      </div></div>
+      <div class="cg"><div class="cg__label">Format</div><div class="chips">
+        <button class="chip" data-g="vid-fmt" data-v="Horizontal (16:9)">Horizontal (16:9)</button>
+        <button class="chip" data-g="vid-fmt" data-v="Vertical (9:16)">Vertical (9:16)</button>
+      </div></div>
+      <div class="qgrid">
+        <div class="qfield"><input type="text" id="f-vid-dur"/><label for="f-vid-dur">Estimated duration</label></div>
+      </div>
+      <div class="qfield"><textarea id="f-vid-refs" rows="4"></textarea><label for="f-vid-refs">References (links or descriptions)</label></div>
+    </div>
+
+    <div class="yn-row"><span class="yn-label" id="label-fp-service">Floor Plans</span><div class="yn-btns"><button class="yn-btn" data-svc="fp" data-v="yes">YES</button><button class="yn-btn" data-svc="fp" data-v="no">NO</button></div></div>
+    <div class="expand" id="fp-ex">
+      <div class="qgrid">
+        <div class="qfield"><input type="number" id="f-fp-qty" min="1"/><label for="f-fp-qty">Quantity</label></div>
+        <div class="qfield"><input type="text" id="f-fp-typo"/><label for="f-fp-typo">Typologies (T1, T2…)</label></div>
+      </div>
+      <div class="qfield"><textarea id="f-fp-notes" rows="4"></textarea><label for="f-fp-notes">Notes</label></div>
+    </div>
+  </div>
+
+  <div class="err-msg" id="svc-err">Please select Yes for at least one service.</div>
+  <div class="qnav">
+    <button class="qnav__back" id="s2-prv">← Previous</button>
+    <span class="qnav__count">02 / 06</span>
+    <button class="qnav__next" id="s2-nxt">Continue <svg viewBox="0 0 24 10"><path d="M0 5L22 5M17 1L22 5L17 9"/></svg></button>
+  </div>
+</div>
+
+<!-- ═══ STEP 03 — Available Material ═══ -->
+<div class="qstep" id="s3">
+  <div class="qstep__ey">Step 03 of 06 — Available Material</div>
+  <h1 class="qstep__title">What materials<br>do you have?</h1>
+
+  <div class="sec-lbl" id="label-3d-model">3D Model Available?</div>
+  <div class="cgrid c2"><div class="card" data-g="model" data-v="Yes"><div class="card__label">Yes</div></div><div class="card" data-g="model" data-v="No"><div class="card__label">No</div></div></div>
+  <div class="expand" id="model-ex">
+    <div class="cg" style="margin-bottom:0"><div class="cg__label">File Format</div><div class="chips">
+      <button class="chip" data-m="model-fmt" data-v="Archicad">Archicad</button>
+      <button class="chip" data-m="model-fmt" data-v="SketchUp">SketchUp</button>
+      <button class="chip" data-m="model-fmt" data-v="Revit">Revit</button>
+      <button class="chip" data-m="model-fmt" data-v="IFC">IFC</button>
+      <button class="chip" data-m="model-fmt" data-v="FBX">FBX</button>
+      <button class="chip" data-m="model-fmt" data-v="OBJ">OBJ</button>
+      <button class="chip" data-m="model-fmt" data-v="3ds Max">3ds Max</button>
+      <button class="chip" data-m="model-fmt" data-v="AutoCAD">AutoCAD</button>
+      <button class="chip" data-m="model-fmt" data-v="PDF">PDF</button>
+      <button class="chip" data-m="model-fmt" data-v="Other">Other</button>
+    </div></div>
+  <div class="qfield" id="model-fmt-other-field" style="display:none"><input type="text" id="f-model-fmt-other" /><label for="f-model-fmt-other">Other file format</label></div>
+  </div>
+
+  <div class="sec-lbl" id="label-materials-defined">Materials Defined?</div>
+  <div class="cgrid"><div class="card" data-g="matdef" data-v="Yes"><div class="card__label">Yes</div></div><div class="card" data-g="matdef" data-v="Partially"><div class="card__label">Partially</div></div><div class="card" data-g="matdef" data-v="No"><div class="card__label">No</div></div></div>
+
+  <div class="qfield"><textarea id="f-mat-refs" rows="4"></textarea><label for="f-mat-refs">References / inspiration</label></div>
+  <div class="qfield"><textarea id="f-mat-notes" rows="4"></textarea><label for="f-mat-notes">Notes</label></div>
+
+  <div class="qnav">
+    <button class="qnav__back" id="s3-prv">← Previous</button>
+    <span class="qnav__count">03 / 06</span>
+    <button class="qnav__next" id="s3-nxt">Continue <svg viewBox="0 0 24 10"><path d="M0 5L22 5M17 1L22 5L17 9"/></svg></button>
+  </div>
+</div>
+
+<!-- ═══ STEP 04 — Scene & Expectations ═══ -->
+<div class="qstep" id="s4">
+  <div class="qstep__ey">Step 04 of 06 — Scene &amp; Expectations</div>
+  <h1 class="qstep__title">Atmosphere<br>and expectations.</h1>
+
+  <div class="sec-lbl">Landscape Included?</div>
+  <div class="cgrid"><div class="card" data-g="land" data-v="Yes — Full"><div class="card__label">Yes — Full</div></div><div class="card" data-g="land" data-v="Partially"><div class="card__label">Partially</div></div><div class="card" data-g="land" data-v="No"><div class="card__label">No</div></div></div>
+
+  <div class="sec-lbl">Humanization?</div>
+  <div class="cgrid"><div class="card" data-g="human" data-v="Yes"><div class="card__label">Yes</div></div><div class="card" data-g="human" data-v="Minimal"><div class="card__label">Minimal</div></div><div class="card" data-g="human" data-v="No"><div class="card__label">No</div></div></div>
+
+  <div class="qfield"><input type="text" id="f-atm"/><label for="f-atm">Atmosphere (e.g. warm, minimal, luxurious)</label></div>
+  <div class="qfield"><input type="text" id="f-style"/><label for="f-style">Visual style references</label></div>
+  <div class="qfield"><textarea id="f-scene-notes" rows="4"></textarea><label for="f-scene-notes">Special Requests / Notes</label></div>
+
+  <div class="qnav">
+    <button class="qnav__back" id="s4-prv">← Previous</button>
+    <span class="qnav__count">04 / 06</span>
+    <button class="qnav__next" id="s4-nxt">Continue <svg viewBox="0 0 24 10"><path d="M0 5L22 5M17 1L22 5L17 9"/></svg></button>
+  </div>
+</div>
+
+<!-- ═══ STEP 05 — Delivery & Notes ═══ -->
+<div class="qstep" id="s5">
+  <div class="qstep__ey">Step 05 of 06 — Delivery &amp; Notes</div>
+  <h1 class="qstep__title">Timeline and Final Notes</h1>
+
+  <div class="qgrid"><div class="qfield"><input type="date" id="f-deadline"/><label for="f-deadline">Expected Deadline</label></div></div>
+  <div class="qfield"><textarea id="f-notes" rows="5"></textarea><label for="f-notes">Additional Notes</label></div>
+
+  <div class="file-note">
+    <p id="file-note">Files &amp; References</p>
+    <p id="file-note-2">After submitting this briefing, all drawings, 3D models and references can be sent directly to <a href="mailto:bohrer.archviz@gmail.com">bohrer.archviz@gmail.com</a></p>
+  </div>
+
+  <div class="qnav">
+    <button class="qnav__back" id="s5-prv">← Previous</button>
+    <span class="qnav__count">05 / 06</span>
+    <button class="qnav__next" id="s5-nxt">Review &amp; Submit <svg viewBox="0 0 24 10"><path d="M0 5L22 5M17 1L22 5L17 9"/></svg></button>
+  </div>
+</div>
+
+<!-- ═══ STEP 06 — Review ═══ -->
+<div class="qstep" id="s6">
+  <div class="qstep__ey">Step 06 of 06 — Review</div>
+  <h1 class="qstep__title">Everything<br>looks good?</h1>
+  <p class="qstep__sub">Review your briefing before sending.<br>Use the button below to go back and edit.</p>
+
+  <div id="rev-content"></div>
+
+  <form id="qform" name="quote" action="/" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate style="display:none">
+    <input type="hidden" name="form-name" value="quote"/>
+    <p style="display:none"><label>Don’t fill this out if you’re human: <input name="bot-field"/></label></p>
+    <input type="hidden" name="name" id="hf-name"/>
+    <input type="hidden" name="company" id="hf-company"/>
+    <input type="hidden" name="project" id="hf-project"/>
+    <input type="hidden" name="email" id="hf-email"/>
+    <input type="hidden" name="phone" id="hf-phone"/>
+    <input type="hidden" name="location" id="hf-location"/>
+    <input type="hidden" name="project-type" id="hf-type"/>
+    <input type="hidden" name="project-type-custom" id="hf-type-custom"/>
+    <input type="hidden" name="exterior-images" id="hf-ext-on"/>
+    <input type="hidden" name="ext-quantity" id="hf-ext-qty"/>
+    <input type="hidden" name="exterior-views" id="hf-ext-views"/>
+    <input type="hidden" name="other-exterior-view" id="hf-ext-other"/>
+    <input type="hidden" name="exterior-mood" id="hf-ext-mood"/>
+    <input type="hidden" name="interior-images" id="hf-int-on"/>
+    <input type="hidden" name="int-quantity" id="hf-int-qty"/>
+    <input type="hidden" name="interior-spaces" id="hf-int-spaces"/>
+    <input type="hidden" name="other-interior-space" id="hf-int-other"/>
+    <input type="hidden" name="video-animation" id="hf-vid-on"/>
+    <input type="hidden" name="video-scope" id="hf-vid-scope"/>
+    <input type="hidden" name="video-format" id="hf-vid-fmt"/>
+    <input type="hidden" name="video-duration" id="hf-vid-dur"/>
+    <input type="hidden" name="video-refs" id="hf-vid-refs"/>
+    <input type="hidden" name="floor-plans" id="hf-fp-on"/>
+    <input type="hidden" name="floor-plans-quantity" id="hf-fp-qty"/>
+    <input type="hidden" name="floor-plans-typologies" id="hf-fp-typo"/>
+    <input type="hidden" name="floor-plans-notes" id="hf-fp-notes"/>
+    <input type="hidden" name="model-available" id="hf-model"/>
+    <input type="hidden" name="model-format" id="hf-model-fmt"/>
+    <input type="hidden" name="model-format-custom" id="hf-model-fmt-custom"/>
+    <input type="hidden" name="materials-defined" id="hf-mat-def"/>
+    <input type="hidden" name="material-refs" id="hf-mat-refs"/>
+    <input type="hidden" name="material-notes" id="hf-mat-notes"/>
+    <input type="hidden" name="landscape-included" id="hf-land"/>
+    <input type="hidden" name="humanization" id="hf-human"/>
+    <input type="hidden" name="atmosphere" id="hf-atm"/>
+    <input type="hidden" name="visual-style" id="hf-style"/>
+    <input type="hidden" name="scene-notes" id="hf-scene-notes"/>
+    <input type="hidden" name="deadline" id="hf-deadline"/>
+    <input type="hidden" name="additional-notes" id="hf-notes"/>
+    <input type="hidden" name="briefing-data" id="hf-data"/>
+  </form>
+
+  <div class="action-row">
+    <button class="btn-ol" id="pdf-btn">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Generate PDF
+    </button>
+    <button class="btn-sl" id="sub-btn">
+      Send Request
+      <svg viewBox="0 0 24 10"><path d="M0 5L22 5M17 1L22 5L17 9"/></svg>
+    </button>
+  </div>
+  <div class="qnav" style="margin-top:20px">
+    <button class="qnav__back" id="s6-prv">← Edit</button>
+    <span></span><span></span>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="qsuccess" id="qsuc">
+  <div class="qsuccess__check"><svg viewBox="0 0 48 48"><path d="M10 24 L20 34 L38 14"/></svg></div>
+  <h1 class="qsuccess__title">Briefing sent.</h1>
+  <p class="qsuccess__sub">Thank you! We'll review your project and reply within 24 hours with a personalised proposal.</p>
+  <a href="/" class="qsuccess__back">← Back to the site</a>
+</div>
+
+</div></main>
+
+<!-- PRINT VIEW -->
+<div id="pv">
+  <div class="pv-header"><div class="pv-brand">BOHRER ARCHVIZ — Project Briefing</div><div class="pv-contact">bohrer.archviz@gmail.com | +351 964684343</div><div class="pv-date" id="pv-date"></div></div>
+  <div id="pv-content"></div>
+</div>
+
+<script>
+(function(){
+
+/* ── STATE ── */
+const S = {
+  name:'',company:'',proj:'',email:'',phone:'',loc:'',type:'',typeCustom:'',
+  ext:{on:false,qty:'',views:[],otherView:'',mood:[]},
+  int:{on:false,qty:'',spaces:[],otherSpace:''},
+  vid:{on:false,scope:'',fmt:'',dur:'',refs:''},
+  fp:{on:false,qty:'',typo:'',notes:''},
+  model:'',modelFmt:[],modelFmtCustom:'',matDef:'',matRefs:'',matNotes:'',
+  land:'',human:'',atm:'',style:'',sceneNotes:'',
+  deadline:'',notes:''
+};
+
+/* arrays for multi-select */
+const MULTI = {'ext-views':S.ext.views,'ext-mood':S.ext.mood,'int-spaces':S.int.spaces,'model-fmt':S.modelFmt};
+
+/* group-name → state key */
+const GMAP = {type:'type',model:'model',matdef:'matDef',land:'land',human:'human'};
+
+let cur = 1;
+let lang = 'en';
+
+const TRANSLATIONS_PT = {
+  'document.title': 'Pedir Orçamento — BOHRER ARCHVIZ',
+  '.qh__back': '← voltar ao site',
+  '#s1 .qstep__ey': 'Etapa 01 de 06 — Cliente e Projeto',
+  '#s1 .qstep__title': 'Conte-nos sobre você e seu projeto.',
+  'label[for="f-name"]': 'Nome completo *',
+  'label[for="f-company"]': 'Empresa / Estúdio',
+  'label[for="f-proj"]': 'Nome do projeto *',
+  'label[for="f-email"]': 'E-mail *',
+  'label[for="f-phone"]': 'Telefone / WhatsApp',
+  'label[for="f-loc"]': 'Local do projeto',
+  '#proj-other-field label': 'Outro tipo de projeto',
+  'label[for="f-type-other"]': 'Outro tipo de projeto',
+  '#type-err': 'Selecione um tipo de projeto.',
+  '#s2 .qstep__ey': 'Etapa 02 de 06 — Serviços',
+  '#s2 .qstep__title': 'Que serviços você precisa?',
+  '#s2 .qstep__sub': 'Marque Sim para cada serviço. Detalhes aparecerão automaticamente.',
+  '#label-ext-service': 'Imagens Externas',
+  '#label-int-service': 'Imagens Internas',
+  '#label-vid-service': 'Vídeo & Animação',
+  '#label-fp-service': 'Plantas Baixas',
+  'label[for="f-ext-qty"]': 'Quantidade de imagens *',
+  'label[for="f-ext-other"]': 'Outro tipo de vista',
+  'label[for="f-int-qty"]': 'Quantidade de imagens *',
+  'label[for="f-int-other"]': 'Outro espaço necessário',
+  'label[for="f-vid-dur"]': 'Duração estimada',
+  'label[for="f-vid-refs"]': 'Referências (links ou descrições)',
+  '#label-3d-model': 'Modelo 3D disponível?',
+  '#label-materials-defined': 'Materiais definidos?',
+  '#label-file-format': 'Formato do arquivo',
+  'label[for="f-model-fmt-other"]': 'Outro formato de arquivo',
+  'label[for="f-mat-refs"]': 'Referências / inspiração',
+  'label[for="f-mat-notes"]': 'Notas',
+  'label[for="f-fp-qty"]': 'Quantidade',
+  'label[for="f-fp-typo"]': 'Tipologias (T1, T2…)',
+  'label[for="f-fp-notes"]': 'Notas',
+  '#s4 .qstep__ey': 'Etapa 04 de 06 — Cena & Expectativas',
+  'label[for="f-atm"]': 'Atmosfera (ex: quente, minimalista, luxuosa)',
+  'label[for="f-style"]': 'Referências de estilo visual',
+  'label[for="f-scene-notes"]': 'Solicitações especiais / Notas',
+  '#s5 .qstep__ey': 'Etapa 05 de 06 — Entrega & Notas',
+  '#s5 .qstep__title': 'Cronograma e Notas Finais',
+  'label[for="f-deadline"]': 'Prazo esperado',
+  'label[for="f-notes"]': 'Notas adicionais',
+  '#s6 .qstep__ey': 'Etapa 06 de 06 — Revisão',
+  '#s6 .qstep__sub': 'Revise seu briefing antes de enviar. Use o botão abaixo para voltar e editar.',
+  '#s3 .qstep__ey': 'Etapa 03 de 06 — Material Disponível',
+  '#s3 .qstep__title': 'Que materiais você tem?',
+  '#s4 .qstep__title': 'Atmosfera e expectativas.',
+  '#s6 .qstep__title': 'Tudo parece bem?',
+  'Project Type *': 'Tipo de Projeto *',
+  'Name is required.': 'Nome é obrigatório.',
+  'Project name is required.': 'Nome do projeto é obrigatório.',
+  'Valid e-mail required.': 'E-mail válido é obrigatório.',
+  '#svc-err': 'Por favor, selecione Sim para pelo menos um serviço.',
+  '#file-note': 'Arquivos & Referências',
+  '#file-note-2': 'Após enviar este briefing, todos os desenhos, modelos 3D e referências podem ser enviados diretamente para <a href="mailto:bohrer.archviz@gmail.com">bohrer.archviz@gmail.com</a>',
+  '#pdf-btn': 'Gerar PDF',
+  '#sub-btn': 'Enviar solicitação',
+  '.pv-contact': 'bohrer.archviz@gmail.com | +351 964684343',
+  '#qsuc .qsuccess__title': 'Briefing enviado.',
+  '#qsuc .qsuccess__sub': 'Obrigado! Vamos analisar seu projeto e responder em até 24 horas com uma proposta personalizada.',
+  '#qsuc .qsuccess__back': '← Voltar ao site',
+  '#s2-nxt': 'Continuar',
+  '#s3-nxt': 'Continuar',
+  '#s4-nxt': 'Continuar',
+  '#s5-nxt': 'Revisar & Enviar',
+  '#s6-prv': '← Editar',
+  '#s1-nxt': 'Continuar',
+  '#s2-prv': '← Anterior',
+  '#s3-prv': '← Anterior',
+  '#s4-prv': '← Anterior',
+  '#s5-prv': '← Anterior'
+};
+// Common exact-text translations used for data-i18n fallbacks
+TRANSLATIONS_PT['YES'] = 'SIM';
+TRANSLATIONS_PT['NO'] = 'NÃO';
+TRANSLATIONS_PT['Continue'] = 'Continuar';
+TRANSLATIONS_PT['← Previous'] = '← Anterior';
+TRANSLATIONS_PT['Sending…'] = 'Enviando…';
+TRANSLATIONS_PT['Error — try again'] = 'Erro — tente novamente';
+// Additional Portuguese translations for remaining UI text
+TRANSLATIONS_PT['View Types'] = 'Tipos de Vista';
+TRANSLATIONS_PT['Mood / Time of Day'] = 'Ambiente / Hora do Dia';
+TRANSLATIONS_PT['Spaces Needed'] = 'Espaços Necessários';
+TRANSLATIONS_PT['Scope'] = 'Escopo';
+TRANSLATIONS_PT['Format'] = 'Formato';
+TRANSLATIONS_PT['File Format'] = 'Formato do Arquivo';
+TRANSLATIONS_PT['Spaces Needed'] = 'Espaços Necessários';
+TRANSLATIONS_PT['Landscape Included?'] = 'Paisagismo Incluído?';
+TRANSLATIONS_PT['Humanization?'] = 'Humanização?';
+TRANSLATIONS_PT['Files & References'] = 'Arquivos & Referências';
+TRANSLATIONS_PT['Everything looks good?'] = 'Tudo parece bem?';
+TRANSLATIONS_PT['Yes - totally'] = 'Sim - totalmente';
+TRANSLATIONS_PT['Yes'] = 'Sim';
+TRANSLATIONS_PT['No'] = 'Não';
+TRANSLATIONS_PT['View Types'] = 'Tipos de Vista';
+TRANSLATIONS_PT['Spaces Needed'] = 'Espaços Necessários';
+TRANSLATIONS_PT['Scope'] = 'Escopo';
+TRANSLATIONS_PT['Format'] = 'Formato';
+// PDF title
+TRANSLATIONS_PT['.pv-brand'] = 'BOHRER ARCHVIZ — Orçamento de Projeto';
+
+const LABEL_PT = {
+  'House': 'Casa',
+  'Apartment': 'Apartamento',
+  'Residential Building': 'Edifício Residencial',
+  'Commercial': 'Comercial',
+  'Other': 'Outro',
+  'Main Facade': 'Fachada Principal',
+  'Rear Facade': 'Fachada Traseira',
+  'Pool Area': 'Área da Piscina',
+  'Garden': 'Jardim',
+  'Street View': 'Vista da Rua',
+  'Aerial View': 'Vista Aérea',
+  'Blue Hour': 'Hora Azul',
+  'Morning': 'Manhã',
+  'Afternoon': 'Tarde',
+  'Golden Hour': 'Hora Dourada',
+  'Sunset': 'Pôr do Sol',
+  'Night': 'Noite',
+  'Living Room': 'Sala de Estar',
+  'Dining': 'Jantar',
+  'Kitchen': 'Cozinha',
+  'Bedroom': 'Quarto',
+  'Master Suite': 'Suíte Master',
+  'Bathroom': 'Banheiro',
+  'Office': 'Escritório',
+  'Lobby': 'Lobby',
+  'Terrace': 'Terraço',
+  'Horizontal (16:9)': 'Horizontal (16:9)',
+  'Vertical (9:16)': 'Vertical (9:16)',
+  'Archicad': 'Archicad',
+  'SketchUp': 'SketchUp',
+  'Revit': 'Revit',
+  'IFC': 'IFC',
+  'FBX': 'FBX',
+  'OBJ': 'OBJ',
+  '3ds Max': '3ds Max',
+  'AutoCAD': 'AutoCAD',
+  'PDF': 'PDF',
+  'Yes': 'Sim',
+  'No': 'Não',
+  'Partially': 'Parcialmente',
+  'yes': 'Sim',
+  'no': 'Não',
+  'Both': 'Ambos',
+  'both': 'Ambos',
+  'Exterior': 'Exterior',
+  'Interior': 'Interior',
+  'Yes — Full': 'Sim — Completo',
+  'Minimal': 'Minimalista'
+};
+
+function detectLang(){
+  // 1) URL parameter ?lang=pt|en takes precedence — be liberal in parsing
+  try{
+    // direct search in full href (covers hash-based routing or odd hosts)
+    var m = (window.location.href || '').match(/[?&]lang=(pt|en)(?:&|$|#)/i);
+    if(m && m[1]){
+      var q1 = m[1].toLowerCase();
+      console.debug('detectLang: found lang in href', q1, window.location.href);
+      localStorage.setItem('ba-lang', q1);
+      return q1;
+    }
+    // fallback to normal search params
+    var p = new URLSearchParams(window.location.search || '');
+    var q = (p.get('lang') || '').toLowerCase();
+    if(q === 'pt' || q === 'en'){
+      console.debug('detectLang: found lang in searchParams', q, window.location.search);
+      localStorage.setItem('ba-lang', q);
+      return q;
+    }
+    // also check for a ?... inside the hash (single-page setups)
+    if(window.location.hash && window.location.hash.indexOf('?')>-1){
+      var hashQuery = window.location.hash.split('?')[1] || '';
+      var ph = new URLSearchParams(hashQuery);
+      var qh = (ph.get('lang')||'').toLowerCase();
+      if(qh === 'pt' || qh === 'en'){ console.debug('detectLang: found lang in hash', qh, window.location.hash); localStorage.setItem('ba-lang', qh); return qh; }
+    }
+  }catch(e){}
+  console.debug('detectLang: try block finished');
+  // 2) saved preference
+  const stored = localStorage.getItem('ba-lang');
+  if(stored === 'pt' || stored === 'en') return stored;
+  // 3) referrer heuristic
+  if(document.referrer && /(?:\/|=)(pt|pt-br)(?:\/|$|\?|#)/i.test(document.referrer)) return 'pt';
+  // 4) browser default
+  const nav = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  return nav.startsWith('pt') ? 'pt' : 'en';
+}
+
+function translatePage(){
+  var map = (window.TRANSLATIONS && window.TRANSLATIONS[lang]) || (lang === 'pt' ? TRANSLATIONS_PT : {});
+
+  function applyText(el, text){
+    if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA'){
+      el.placeholder = text;
+      return;
+    }
+    if(text.indexOf('<') !== -1 || /&[a-zA-Z0-9#]+;/.test(text)){
+      el.innerHTML = text;
+      return;
+    }
+    if(el.childElementCount > 0){
+      var textNodes = Array.from(el.childNodes).filter(function(n){ return n.nodeType === Node.TEXT_NODE; });
+      if(textNodes.length === 1){
+        textNodes[0].nodeValue = text;
+        return;
+      }
+      if(textNodes.length > 1){
+        textNodes[0].nodeValue = text;
+        for(var i = 1; i < textNodes.length; i++){
+          textNodes[i].parentNode.removeChild(textNodes[i]);
+        }
+        return;
+      }
+    }
+    el.textContent = text;
+  }
+
+  // 1) Apply selector-based translations (selectors or #id/.class keys)
+  Object.keys(map).forEach(function(key){
+    var text = map[key];
+    if(key === 'document.title'){
+      document.title = text;
+      return;
+    }
+    try{
+      var els = document.querySelectorAll(key);
+      if(els && els.length){
+        els.forEach(function(el){ applyText(el, text); });
+        return; // done for this key
+      }
+    }catch(e){
+      // key might not be a selector, fallthrough to text-match
+    }
+    // 2) data-i18n attributes: apply where dataset.i18n matches key
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k = (el.dataset.i18n||'').trim();
+      if(!k) return;
+      if(k === key){ applyText(el, text); }
+    });
+    // 3) exact-text fallback: replace elements whose trimmed textContent exactly equals the key
+    var candidates = document.querySelectorAll('button, a, span, div, p, label, h1, h2, h3, h4, h5, h6');
+    candidates.forEach(function(el){
+      var t = (el.textContent||'').trim();
+      if(!t) return;
+      if(t === key){ applyText(el, text); }
+    });
+  });
+
+  // 4) Translate chips/cards by data-v using LABEL_PT / LABEL_EN
+  document.querySelectorAll('[data-v]').forEach(function(el){
+    var key = el.dataset.v;
+    if(!key) return;
+    var label = (lang === 'pt' ? (LABEL_PT[key] || key) : (window.LABEL_EN && window.LABEL_EN[key]) || key);
+    el.textContent = label;
+  });
+
+  // 5) pv-contact fallback
+  var pc = document.querySelector('.pv-contact');
+  if(pc){
+    var txt = (map && (map['pv-contact'] || map['pv-contact'])) || pc.textContent;
+    pc.textContent = txt;
+  }
+}
+
+function setLang(next){
+  lang = next;
+  localStorage.setItem('ba-lang', lang);
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  var map = (window.TRANSLATIONS && window.TRANSLATIONS[lang]) || (lang === 'pt' ? TRANSLATIONS_PT : {});
+  if(map['document.title']) document.title = map['document.title'];
+  translatePage();
+}
+
+function toggleOtherField(id, show){
+  const field = document.getElementById(id);
+  if(!field) return;
+  field.style.display = show ? 'block' : 'none';
+  if(!show){
+    const input = field.querySelector('input');
+    if(input) input.value = '';
+  }
+}
+
+function formatList(arr, custom){
+  if(!arr.length) return '—';
+  return arr.map(v => v === 'Other' ? (custom || 'Other') : v).join(', ');
+}
+
+function displayType(){
+  return S.type === 'Other' ? (S.typeCustom || 'Other') : S.type;
+}
+
+const PT_LABELS = {
+  'Client & Project': 'Cliente & Projeto',
+  'Services': 'Serviços',
+  'Available Material': 'Material Disponível',
+  'Scene & Expectations': 'Cena & Expectativas',
+  'Delivery & Notes': 'Prazo & Notas',
+  'Name': 'Nome',
+  'Company': 'Empresa',
+  'Project': 'Projeto',
+  'E-mail': 'E-mail',
+  'Phone': 'Telefone',
+  'Location': 'Local',
+  'Project Type': 'Tipo de Projeto',
+  'Exterior Images': 'Imagens Externas',
+  'Interior Images': 'Imagens Internas',
+  'Video & Animation': 'Vídeo & Animação',
+  'Floor Plans': 'Plantas Baixas',
+  'Quantity': 'Quantidade',
+  'Views': 'Vistas',
+  'Mood': 'Clima',
+  'Spaces': 'Espaços',
+  'Scope': 'Escopo',
+  'Format': 'Formato',
+  'Duration': 'Duração',
+  'Typologies': 'Tipologias',
+  '3D Model': 'Modelo 3D',
+  'File Format': 'Formato do Arquivo',
+  'Materials Defined': 'Materiais Definidos',
+  'References': 'Referências',
+  'Notes': 'Notas',
+  'Landscape': 'Paisagem',
+  'Humanization': 'Humanização',
+  'Atmosphere': 'Atmosfera',
+  'Style': 'Estilo',
+  'Special Requests': 'Solicitações Especiais',
+  'Expected Deadline': 'Prazo Esperado',
+  'Additional Notes': 'Notas Adicionais',
+  '→ Quantity': '→ Quantidade',
+  '→ Views': '→ Vistas',
+  '→ Mood': '→ Clima',
+  '→ Spaces': '→ Espaços',
+  '→ Scope': '→ Escopo',
+  '→ Format': '→ Formato',
+  '→ Duration': '→ Duração',
+  '→ Typologies': '→ Tipologias',
+  'Ext. Quantity': 'Qtd. Ext.',
+  'Int. Quantity': 'Qtd. Int.',
+  'FP Quantity': 'Qtd. PB',
+  'Type': 'Tipo',
+  'Generated on ': 'Gerado em ',
+  'Yes': 'Sim',
+  'No': 'Não',
+  'Other': 'Outro'
+};
+
+// Add small label translations used by t()
+PT_LABELS['Sending…'] = 'Enviando…';
+PT_LABELS['Error — try again'] = 'Erro — tente novamente';
+PT_LABELS['Continue'] = 'Continuar';
+PT_LABELS['← Previous'] = '← Anterior';
+PT_LABELS['YES'] = 'SIM';
+PT_LABELS['NO'] = 'NÃO';
+
+function t(label){
+  return lang === 'pt' ? (PT_LABELS[label] || label) : label;
+}
+
+/* ── PROGRESS ── */
+function setP(n){ document.getElementById('qfill').style.width=(n/6*100)+'%'; }
+
+/* ── NAVIGATE ── */
+function goTo(n){
+  var c=document.getElementById('s'+cur), t=document.getElementById('s'+n);
+  if(c){c.classList.remove('on','entering');}
+  cur=n;
+  if(t){t.classList.add('on');void t.offsetWidth;t.classList.add('entering');}
+  setP(n);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── SINGLE-SELECT CARDS ── */
+document.querySelectorAll('.card[data-g]').forEach(function(card){
+  card.addEventListener('click',function(){
+    var g=card.dataset.g;
+    document.querySelectorAll('.card[data-g="'+g+'"]').forEach(function(c){c.classList.remove('on');});
+    card.classList.add('on');
+    var key=GMAP[g]||g;
+    S[key]=card.dataset.v;
+    if(g==='type'){
+      toggleOtherField('proj-other-field', card.dataset.v==='Other');
+      if(card.dataset.v !== 'Other') S.typeCustom='';
+    }
+    if(g==='model'){
+      var open = card.dataset.v==='Yes';
+      document.getElementById('model-ex').classList.toggle('open', open);
+      if(!open){
+        S.modelFmt=[];
+        S.modelFmtCustom='';
+        document.querySelectorAll('.chip[data-m="model-fmt"]').forEach(function(c){c.classList.remove('on');});
+        toggleOtherField('model-fmt-other-field', false);
+      }
+    }
+  });
+});
+
+/* ── SINGLE-SELECT CHIPS (data-g) ── */
+document.querySelectorAll('.chip[data-g]').forEach(function(chip){
+  chip.addEventListener('click',function(){
+    var g=chip.dataset.g;
+    document.querySelectorAll('.chip[data-g="'+g+'"]').forEach(function(c){c.classList.remove('on');});
+    chip.classList.add('on');
+    if(g==='vid-scope') S.vid.scope=chip.dataset.v;
+    if(g==='vid-fmt') S.vid.fmt=chip.dataset.v;
+  });
+});
+
+/* ── MULTI-SELECT CHIPS (data-m) ── */
+document.querySelectorAll('.chip[data-m]').forEach(function(chip){
+  chip.addEventListener('click',function(){
+    chip.classList.toggle('on');
+    var arr=MULTI[chip.dataset.m];
+    if(!arr)return;
+    var i=arr.indexOf(chip.dataset.v);
+    if(i===-1)arr.push(chip.dataset.v);else arr.splice(i,1);
+    if(chip.dataset.m==='ext-views' && chip.dataset.v==='Other'){
+      toggleOtherField('ext-other-field', chip.classList.contains('on'));
+      if(!chip.classList.contains('on')) S.ext.otherView='';
+    }
+    if(chip.dataset.m==='int-spaces' && chip.dataset.v==='Other'){
+      toggleOtherField('int-other-field', chip.classList.contains('on'));
+      if(!chip.classList.contains('on')) S.int.otherSpace='';
+    }
+    if(chip.dataset.m==='model-fmt' && chip.dataset.v==='Other'){
+      toggleOtherField('model-fmt-other-field', chip.classList.contains('on'));
+      if(!chip.classList.contains('on')) S.modelFmtCustom='';
+    }
+  });
+});
+
+/* ── YES/NO SERVICE ── */
+var EXMAP={ext:'ext-ex',int:'int-ex',vid:'vid-ex',fp:'fp-ex'};
+document.querySelectorAll('.yn-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var svc=btn.dataset.svc;
+    document.querySelectorAll('.yn-btn[data-svc="'+svc+'"]').forEach(function(b){b.classList.remove('on');});
+    btn.classList.add('on');
+    var yes=btn.dataset.v==='yes';
+    S[svc].on=yes;
+    document.getElementById(EXMAP[svc]).classList.toggle('open',yes);
+  });
+});
+
+/* ── FLOAT LABELS ── */
+document.querySelectorAll('.qfield input:not([type="date"]),.qfield textarea').forEach(function(el){
+  var w=el.closest('.qfield');
+  var upd=function(){w.classList.toggle('has',!!el.value.trim());};
+  el.addEventListener('focus',function(){w.classList.add('act');});
+  el.addEventListener('blur',function(){w.classList.remove('act');upd();});
+  el.addEventListener('input',upd);
+});
+
+[['f-type-other','typeCustom'],['f-ext-other','ext.otherView'],['f-int-other','int.otherSpace'],['f-model-fmt-other','modelFmtCustom']].forEach(function(pair){
+  var input=document.getElementById(pair[0]);
+  if(!input) return;
+  input.addEventListener('input',function(){
+    var path=pair[1].split('.');
+    if(path.length===1){ S[path[0]]=this.value.trim(); }
+    else { S[path[0]][path[1]]=this.value.trim(); }
+  });
+});
+
+/* ── VALIDATION HELPERS ── */
+function ferr(id,show){
+  var w=document.getElementById(id)?.closest('.qfield');
+  if(!w)return;
+  w.classList.toggle('ferr',show);
+  var m=w.querySelector('.err-msg');
+  if(m)m.classList.toggle('show',show);
+}
+function clearErr(){
+  document.querySelectorAll('.ferr').forEach(function(e){e.classList.remove('ferr');});
+  document.querySelectorAll('.err-msg.show').forEach(function(e){e.classList.remove('show');});
+}
+
+/* ── STEP 1 ── */
+document.getElementById('s1-nxt').addEventListener('click',function(){
+  clearErr();var ok=true;
+  if(!document.getElementById('f-name').value.trim()){ferr('f-name',true);ok=false;}
+  if(!document.getElementById('f-proj').value.trim()){ferr('f-proj',true);ok=false;}
+  var em=document.getElementById('f-email').value.trim();
+  if(!em||!em.includes('@')){ferr('f-email',true);ok=false;}
+  if(!S.type){document.getElementById('type-err').classList.add('show');ok=false;}
+  if(!ok)return;
+  S.name=document.getElementById('f-name').value.trim();
+  S.company=document.getElementById('f-company').value.trim();
+  S.proj=document.getElementById('f-proj').value.trim();
+  S.email=em;
+  S.phone=document.getElementById('f-phone').value.trim();
+  S.loc=document.getElementById('f-loc').value.trim();
+  if(S.type === 'Other'){
+    S.typeCustom = document.getElementById('f-type-other').value.trim();
+  } else {
+    S.typeCustom = '';
+  }
+  goTo(2);
+});
+
+/* ── STEP 2 ── */
+document.getElementById('s2-prv').addEventListener('click',function(){goTo(1);});
+document.getElementById('s2-nxt').addEventListener('click',function(){
+  clearErr();
+  if(!S.ext.on&&!S.int.on&&!S.vid.on&&!S.fp.on){document.getElementById('svc-err').classList.add('show');return;}
+  if(S.ext.on){
+    S.ext.qty=document.getElementById('f-ext-qty').value.trim();
+    S.ext.otherView=document.getElementById('f-ext-other').value.trim();
+  }
+  if(S.int.on){
+    S.int.qty=document.getElementById('f-int-qty').value.trim();
+    S.int.otherSpace=document.getElementById('f-int-other').value.trim();
+  }
+  if(S.vid.on){
+    S.vid.dur=document.getElementById('f-vid-dur').value.trim();
+    S.vid.refs=document.getElementById('f-vid-refs').value.trim();
+  }
+  if(S.fp.on){S.fp.qty=document.getElementById('f-fp-qty').value.trim();S.fp.typo=document.getElementById('f-fp-typo').value.trim();S.fp.notes=document.getElementById('f-fp-notes').value.trim();}
+  goTo(3);
+});
+
+/* ── STEP 3 ── */
+document.getElementById('s3-prv').addEventListener('click',function(){goTo(2);});
+document.getElementById('s3-nxt').addEventListener('click',function(){
+  S.modelFmtCustom=document.getElementById('f-model-fmt-other').value.trim();
+  S.matRefs=document.getElementById('f-mat-refs').value.trim();
+  S.matNotes=document.getElementById('f-mat-notes').value.trim();
+  goTo(4);
+});
+
+/* ── STEP 4 ── */
+document.getElementById('s4-prv').addEventListener('click',function(){goTo(3);});
+document.getElementById('s4-nxt').addEventListener('click',function(){
+  S.atm=document.getElementById('f-atm').value.trim();
+  S.style=document.getElementById('f-style').value.trim();
+  S.sceneNotes=document.getElementById('f-scene-notes').value.trim();
+  goTo(5);
+});
+
+/* ── STEP 5 ── */
+document.getElementById('s5-prv').addEventListener('click',function(){goTo(4);});
+document.getElementById('s5-nxt').addEventListener('click',function(){
+  S.deadline=document.getElementById('f-deadline').value;
+  S.notes=document.getElementById('f-notes').value.trim();
+  buildReview();
+  goTo(6);
+});
+
+/* ── STEP 6 ── */
+document.getElementById('s6-prv').addEventListener('click',function(){goTo(5);});
+
+/* ── BUILD REVIEW ── */
+function rev(k,v){return '<div class="rev-row"><div class="rev-row__k">'+k+'</div><div class="rev-row__v">'+(v||'—')+'</div></div>';
+}
+function revGroup(title,rows){return '<div class="rev-group"><div class="rev-group__title">'+title+'</div><div class="rev-card">'+rows.map(function(r){return rev(r[0],r[1]);}).join('')+'</div></div>';
+}
+
+function buildReview(){
+  var yesText = lang === 'pt' ? 'Sim' : 'Yes';
+  var noText = lang === 'pt' ? 'Não' : 'No';
+  var svcRows=[];
+  svcRows.push([t('Exterior Images'), S.ext.on ? yesText : noText]);
+  if(S.ext.on){svcRows.push([t('→ Quantity'), S.ext.qty||'—'],[t('→ Views'), formatList(S.ext.views,S.ext.otherView)], [t('→ Mood'), formatList(S.ext.mood,'')]);}
+  svcRows.push([t('Interior Images'), S.int.on ? yesText : noText]);
+  if(S.int.on){svcRows.push([t('→ Quantity'), S.int.qty||'—'],[t('→ Spaces'), formatList(S.int.spaces,S.int.otherSpace)]);}
+  svcRows.push([t('Video & Animation'), S.vid.on ? yesText : noText]);
+  if(S.vid.on){svcRows.push([t('→ Scope'), S.vid.scope||'—'],[t('→ Format'), S.vid.fmt||'—'],[t('→ Duration'), S.vid.dur||'—']);}
+  svcRows.push([t('Floor Plans'), S.fp.on ? yesText : noText]);
+  if(S.fp.on){svcRows.push([t('→ Quantity'), S.fp.qty||'—'],[t('→ Typologies'), S.fp.typo||'—']);}
+
+  document.getElementById('rev-content').innerHTML=
+    revGroup(t('Client & Project'),[[t('Name'),S.name],[t('Company'),S.company||'—'],[t('Project'),S.proj],[t('E-mail'),S.email],[t('Phone'),S.phone||'—'],[t('Location'),S.loc||'—'],[t('Project Type'),displayType()]])+
+    revGroup(t('Services'),svcRows)+
+    revGroup(t('Available Material'),[[t('3D Model'),S.model||'—'],[t('File Format'),formatList(S.modelFmt,S.modelFmtCustom)||'—'],[t('Materials Defined'),S.matDef||'—'],[t('References'),S.matRefs||'—'],[t('Notes'),S.matNotes||'—']])+
+    revGroup(t('Scene & Expectations'),[[t('Landscape'),S.land||'—'],[t('Humanization'),S.human||'—'],[t('Atmosphere'),S.atm||'—'],[t('Style'),S.style||'—'],[t('Special Requests'),S.sceneNotes||'—']])+
+    revGroup(t('Delivery & Notes'),[[t('Expected Deadline'),S.deadline||'—'],[t('Additional Notes'),S.notes||'—']]);
+  buildPrint();
+}
+
+function buildPrint(){
+  var yesText = lang === 'pt' ? 'Sim' : 'Yes';
+  var noText = lang === 'pt' ? 'Não' : 'No';
+  var dateLabel = lang === 'pt' ? 'Gerado em ' : 'Generated on ';
+  document.getElementById('pv-date').textContent = dateLabel + new Date().toLocaleDateString(lang === 'pt' ? 'pt-BR' : 'en-GB',{day:'2-digit',month:'long',year:'numeric'});
+  var sections=[
+    {t:t('Client & Project'),r:[[t('Name'),S.name],[t('Company'),S.company||'—'],[t('Project'),S.proj],[t('E-mail'),S.email],[t('Phone'),S.phone||'—'],[t('Location'),S.loc||'—'],[t('Project Type'),displayType()||'—']]},
+    {t:t('Services'),r:(function(){
+      var r=[[t('Exterior Images'),S.ext.on ? yesText : noText]];
+      if(S.ext.on){r.push([t('Ext. Quantity'),S.ext.qty||'—'],[t('Views'),formatList(S.ext.views,S.ext.otherView)], [t('Mood'),formatList(S.ext.mood,'')]);}
+      r.push([t('Interior Images'),S.int.on ? yesText : noText]);
+      if(S.int.on){r.push([t('Int. Quantity'),S.int.qty||'—'],[t('Spaces'),formatList(S.int.spaces,S.int.otherSpace)]);}
+      r.push([t('Video & Animation'),S.vid.on ? yesText : noText]);
+      if(S.vid.on){r.push([t('Scope'),S.vid.scope||'—'],[t('Format'),S.vid.fmt||'—'],[t('Duration'),S.vid.dur||'—']);}
+      r.push([t('Floor Plans'),S.fp.on ? yesText : noText]);
+      if(S.fp.on){r.push([t('FP Quantity'),S.fp.qty||'—'],[t('Typologies'),S.fp.typo||'—']);}
+      return r;
+    })()},
+    {t:t('Available Material'),r:[[t('3D Model'),S.model||'—'],[t('File Format'),formatList(S.modelFmt,S.modelFmtCustom)||'—'],[t('Materials Defined'),S.matDef||'—'],[t('References'),S.matRefs||'—'],[t('Notes'),S.matNotes||'—']]},
+    {t:t('Scene & Expectations'),r:[[t('Landscape'),S.land||'—'],[t('Humanization'),S.human||'—'],[t('Atmosphere'),S.atm||'—'],[t('Style'),S.style||'—'],[t('Special Requests'),S.sceneNotes||'—']]},
+    {t:t('Delivery & Notes'),r:[[t('Expected Deadline'),S.deadline||'—'],[t('Additional Notes'),S.notes||'—']]}
+  ];
+  document.getElementById('pv-content').innerHTML=sections.map(function(s){
+    return '<div class="pv-section"><div class="pv-section__title">'+s.t+'</div>'+
+      s.r.map(function(r){return '<div class="pv-row"><div class="pv-row__k">'+(r[0]||'')+'</div><div class="pv-row__v">'+(r[1]||'—')+'</div></div>';}).join('')+'</div>';
+  }).join('');
+}
+
+/* ── PDF ── */
+document.getElementById('pdf-btn').addEventListener('click',function(){buildPrint();window.print();});
+
+/* ── SUBMIT ── */
+function setHiddenField(name,value){
+  var form=document.getElementById('qform');
+  if(!form) return;
+  var input=form.querySelector('[name="'+name+'"]');
+  if(!input){
+    input=document.createElement('input');
+    input.type='hidden';
+    input.name=name;
+    form.appendChild(input);
+  }
+  input.value = value != null ? value : '';
+}
+function syncNetlifyFormFields(){
+  setHiddenField('name',S.name);
+  setHiddenField('company',S.company);
+  setHiddenField('project',S.proj);
+  setHiddenField('email',S.email);
+  setHiddenField('phone',S.phone);
+  setHiddenField('location',S.loc);
+  setHiddenField('project-type',displayType());
+  setHiddenField('project-type-custom',S.typeCustom);
+  setHiddenField('exterior-images',S.ext.on ? 'Yes' : 'No');
+  setHiddenField('ext-quantity',S.ext.qty);
+  setHiddenField('exterior-views',formatList(S.ext.views,S.ext.otherView));
+  setHiddenField('other-exterior-view',S.ext.otherView);
+  setHiddenField('exterior-mood',formatList(S.ext.mood,''));
+  setHiddenField('interior-images',S.int.on ? 'Yes' : 'No');
+  setHiddenField('int-quantity',S.int.qty);
+  setHiddenField('interior-spaces',formatList(S.int.spaces,S.int.otherSpace));
+  setHiddenField('other-interior-space',S.int.otherSpace);
+  setHiddenField('video-animation',S.vid.on ? 'Yes' : 'No');
+  setHiddenField('video-scope',S.vid.scope);
+  setHiddenField('video-format',S.vid.fmt);
+  setHiddenField('video-duration',S.vid.dur);
+  setHiddenField('video-refs',S.vid.refs);
+  setHiddenField('floor-plans',S.fp.on ? 'Yes' : 'No');
+  setHiddenField('floor-plans-quantity',S.fp.qty);
+  setHiddenField('floor-plans-typologies',S.fp.typo);
+  setHiddenField('floor-plans-notes',S.fp.notes);
+  setHiddenField('model-available',S.model);
+  setHiddenField('model-format',formatList(S.modelFmt,S.modelFmtCustom));
+  setHiddenField('model-format-custom',S.modelFmtCustom);
+  setHiddenField('materials-defined',S.matDef);
+  setHiddenField('material-refs',S.matRefs);
+  setHiddenField('material-notes',S.matNotes);
+  setHiddenField('landscape-included',S.land);
+  setHiddenField('humanization',S.human);
+  setHiddenField('atmosphere',S.atm);
+  setHiddenField('visual-style',S.style);
+  setHiddenField('scene-notes',S.sceneNotes);
+  setHiddenField('deadline',S.deadline);
+  setHiddenField('additional-notes',S.notes);
+}
+document.getElementById('sub-btn').addEventListener('click',async function(){
+  var btn=this;btn.disabled=true;btn.innerHTML=t('Sending…');
+  document.getElementById('hf-data').value=JSON.stringify({
+    name:S.name,company:S.company,project:S.proj,email:S.email,phone:S.phone,location:S.loc,type:displayType(),
+    exteriorImages:S.ext.on?{qty:S.ext.qty,views:S.ext.views,mood:S.ext.mood,other:S.ext.otherView}:'No',
+    interiorImages:S.int.on?{qty:S.int.qty,spaces:S.int.spaces,other:S.int.otherSpace}:'No',
+    video:S.vid.on?{scope:S.vid.scope,format:S.vid.fmt,duration:S.vid.dur,refs:S.vid.refs}:'No',
+    floorPlans:S.fp.on?{qty:S.fp.qty,typologies:S.fp.typo,notes:S.fp.notes}:'No',
+    model3d:S.model,modelFormat:formatList(S.modelFmt,S.modelFmtCustom),materialsDefined:S.matDef,
+    materialRefs:S.matRefs,materialNotes:S.matNotes,
+    landscape:S.land,humanization:S.human,atmosphere:S.atm,style:S.style,sceneNotes:S.sceneNotes,
+    deadline:S.deadline,additionalNotes:S.notes
+  },null,2);
+  syncNetlifyFormFields();
+  try{
+    await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(document.getElementById('qform'))).toString()});
+    document.getElementById('s6').classList.remove('on','entering');
+    document.getElementById('qsuc').classList.add('on');
+    document.getElementById('qfill').style.width='100%';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){
+    btn.disabled=false;btn.innerHTML=t('Error — try again');btn.style.background='#b00';
+  }
+});
+
+// Build translations map for English dynamically and apply saved language on load
+document.addEventListener('DOMContentLoaded',function(){
+  // Build TRANSLATIONS.en by sampling current DOM for selectors listed in TRANSLATIONS_PT
+  var TRANSLATIONS = {en:{},pt:TRANSLATIONS_PT};
+  Object.keys(TRANSLATIONS_PT).forEach(function(sel){
+    if(sel === 'document.title') {
+      TRANSLATIONS.en['document.title'] = document.title;
+      return;
+    }
+    var html = sel;
+    try{
+      var el = document.querySelector(sel);
+      if(el) html = el.innerHTML;
+    }catch(e){
+      // selector key is not valid CSS; use the key itself as the English fallback
+    }
+    TRANSLATIONS.en[sel] = html;
+  });
+  // Build LABEL_EN from existing data-v elements
+  var LABEL_EN = {};
+  document.querySelectorAll('[data-v]').forEach(function(el){ LABEL_EN[el.dataset.v] = el.textContent; });
+  window.TRANSLATIONS = TRANSLATIONS;
+  window.LABEL_EN = LABEL_EN;
+  // Mark labels with for="..." to be translatable using existing TRANSLATIONS_PT keys
+  document.querySelectorAll('label[for]').forEach(function(l){
+    var key = 'label[for="' + l.getAttribute('for') + '"]';
+    if(!l.dataset.i18n) l.dataset.i18n = key;
+  });
+  // Mark elements with id to use '#id' keys when available
+  document.querySelectorAll('[id]').forEach(function(el){ if(!el.dataset.i18n && el.id){ el.dataset.i18n = '#'+el.id; }});
+  // Mark buttons and other controls without ids to have data-i18n based on their text
+  document.querySelectorAll('button, a.btn-ol, a.btn-sl, .yn-btn, .chip, .card, .card__label, .btn-ol, .btn-sl').forEach(function(el){
+    if(el.dataset.i18n) return;
+    var txt = (el.textContent || el.innerText || '').trim();
+    if(!txt) return;
+    el.dataset.i18n = txt;
+  });
+  // determine language (reads localStorage inside detectLang)
+  var initial = detectLang() || 'en';
+  // debug: show what was detected before applying
+  console.debug('DOMContentLoaded: initial lang detected =', initial, 'href=', window.location.href, 'localStorage.ba-lang=', localStorage.getItem('ba-lang'));
+  // use setLang to centralize side-effects (localStorage, html lang, translate)
+  setLang(initial);
+});
+
+setP(1);
+})();
+</script>
+</body>
+</html>
